@@ -1,0 +1,155 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: daily_mobility_metrics
+  fields:
+    - name: avg_step_length
+      type: numeric
+    - name: avg_walking_speed
+      type: numeric
+    - name: date
+      type: timestamp
+    - name: double_support_percentage
+      type: numeric
+    - name: stair_ascent_speed
+      type: numeric
+    - name: stair_descent_speed
+      type: numeric
+    - name: walking_asymmetry
+      type: numeric
+  graphql:
+    typeName: daily_mobility_metrics
+    inputTypeName: daily_mobility_metrics_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: daily_mobility_metrics
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: daily_mobility_metrics
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - avg_step_length
+          - avg_walking_speed
+          - date
+          - double_support_percentage
+          - stair_ascent_speed
+          - stair_descent_speed
+          - walking_asymmetry
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: daily_mobility_metrics_bool_exp
+  operand:
+    object:
+      type: daily_mobility_metrics
+      comparableFields:
+        - fieldName: avg_step_length
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: avg_walking_speed
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: date
+          booleanExpressionType: timestamp_bool_exp
+        - fieldName: double_support_percentage
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: stair_ascent_speed
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: stair_descent_speed
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: walking_asymmetry
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: daily_mobility_metrics_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: daily_mobility_metrics_agg_exp
+  operand:
+    object:
+      aggregatedType: daily_mobility_metrics
+      aggregatableFields:
+        - fieldName: avg_step_length
+          aggregateExpression: numeric_agg_exp
+        - fieldName: avg_walking_speed
+          aggregateExpression: numeric_agg_exp
+        - fieldName: date
+          aggregateExpression: timestamp_agg_exp
+        - fieldName: double_support_percentage
+          aggregateExpression: numeric_agg_exp
+        - fieldName: stair_ascent_speed
+          aggregateExpression: numeric_agg_exp
+        - fieldName: stair_descent_speed
+          aggregateExpression: numeric_agg_exp
+        - fieldName: walking_asymmetry
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: daily_mobility_metrics_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: daily_mobility_metrics
+  objectType: daily_mobility_metrics
+  source:
+    dataConnectorName: postgres
+    collection: daily_mobility_metrics
+  filterExpressionType: daily_mobility_metrics_bool_exp
+  aggregateExpression: daily_mobility_metrics_agg_exp
+  orderableFields:
+    - fieldName: avg_step_length
+      orderByDirections:
+        enableAll: true
+    - fieldName: avg_walking_speed
+      orderByDirections:
+        enableAll: true
+    - fieldName: date
+      orderByDirections:
+        enableAll: true
+    - fieldName: double_support_percentage
+      orderByDirections:
+        enableAll: true
+    - fieldName: stair_ascent_speed
+      orderByDirections:
+        enableAll: true
+    - fieldName: stair_descent_speed
+      orderByDirections:
+        enableAll: true
+    - fieldName: walking_asymmetry
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: daily_mobility_metrics
+    selectUniques: []
+    orderByExpressionType: daily_mobility_metrics_order_by
+    filterInputTypeName: daily_mobility_metrics_filter_input
+    aggregate:
+      queryRootField: daily_mobility_metrics_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: daily_mobility_metrics
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

@@ -1,0 +1,105 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: daily_exercise_minutes
+  fields:
+    - name: daily_exercise_minutes
+      type: numeric
+    - name: exercise_date
+      type: timestamp
+  graphql:
+    typeName: daily_exercise_minutes
+    inputTypeName: daily_exercise_minutes_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: daily_exercise_minutes
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: daily_exercise_minutes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - daily_exercise_minutes
+          - exercise_date
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: daily_exercise_minutes_bool_exp
+  operand:
+    object:
+      type: daily_exercise_minutes
+      comparableFields:
+        - fieldName: daily_exercise_minutes
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: exercise_date
+          booleanExpressionType: timestamp_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: daily_exercise_minutes_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: daily_exercise_minutes_agg_exp
+  operand:
+    object:
+      aggregatedType: daily_exercise_minutes
+      aggregatableFields:
+        - fieldName: daily_exercise_minutes
+          aggregateExpression: numeric_agg_exp
+        - fieldName: exercise_date
+          aggregateExpression: timestamp_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: daily_exercise_minutes_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: daily_exercise_minutes
+  objectType: daily_exercise_minutes
+  source:
+    dataConnectorName: postgres
+    collection: daily_exercise_minutes
+  filterExpressionType: daily_exercise_minutes_bool_exp
+  aggregateExpression: daily_exercise_minutes_agg_exp
+  orderableFields:
+    - fieldName: daily_exercise_minutes
+      orderByDirections:
+        enableAll: true
+    - fieldName: exercise_date
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: daily_exercise_minutes
+    selectUniques: []
+    orderByExpressionType: daily_exercise_minutes_order_by
+    filterInputTypeName: daily_exercise_minutes_filter_input
+    aggregate:
+      queryRootField: daily_exercise_minutes_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: daily_exercise_minutes
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

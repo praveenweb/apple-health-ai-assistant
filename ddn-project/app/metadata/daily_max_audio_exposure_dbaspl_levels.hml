@@ -1,0 +1,116 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: daily_max_audio_exposure_dbaspl_levels
+  description: 'Monitors daily maximum headphone audio exposure. Important for hearing health. Helps prevent noise-induced hearing damage'
+  fields:
+    - name: daily_max_exposure_levels
+      type: numeric
+    - name: exposure_date
+      type: timestamp
+    - name: unit
+      type: varchar
+  graphql:
+    typeName: daily_max_audio_exposure_dbaspl_levels
+    inputTypeName: daily_max_audio_exposure_dbaspl_levels_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: daily_max_audio_exposure_dbaspl_levels
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: daily_max_audio_exposure_dbaspl_levels
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - daily_max_exposure_levels
+          - exposure_date
+          - unit
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: daily_max_audio_exposure_dbaspl_levels_bool_exp
+  operand:
+    object:
+      type: daily_max_audio_exposure_dbaspl_levels
+      comparableFields:
+        - fieldName: daily_max_exposure_levels
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: exposure_date
+          booleanExpressionType: timestamp_bool_exp
+        - fieldName: unit
+          booleanExpressionType: varchar_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: daily_max_audio_exposure_dbaspl_levels_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: daily_max_audio_exposure_dbaspl_levels_agg_exp
+  operand:
+    object:
+      aggregatedType: daily_max_audio_exposure_dbaspl_levels
+      aggregatableFields:
+        - fieldName: daily_max_exposure_levels
+          aggregateExpression: numeric_agg_exp
+        - fieldName: exposure_date
+          aggregateExpression: timestamp_agg_exp
+        - fieldName: unit
+          aggregateExpression: varchar_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: daily_max_audio_exposure_dbaspl_levels_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: daily_max_audio_exposure_dbaspl_levels
+  objectType: daily_max_audio_exposure_dbaspl_levels
+  source:
+    dataConnectorName: postgres
+    collection: daily_max_audio_exposure_dbaspl_levels
+  filterExpressionType: daily_max_audio_exposure_dbaspl_levels_bool_exp
+  aggregateExpression: daily_max_audio_exposure_dbaspl_levels_agg_exp
+  orderableFields:
+    - fieldName: daily_max_exposure_levels
+      orderByDirections:
+        enableAll: true
+    - fieldName: exposure_date
+      orderByDirections:
+        enableAll: true
+    - fieldName: unit
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: daily_max_audio_exposure_dbaspl_levels
+    selectUniques: []
+    orderByExpressionType: daily_max_audio_exposure_dbaspl_levels_order_by
+    filterInputTypeName: daily_max_audio_exposure_dbaspl_levels_filter_input
+    aggregate:
+      queryRootField: daily_max_audio_exposure_dbaspl_levels_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: daily_max_audio_exposure_dbaspl_levels
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

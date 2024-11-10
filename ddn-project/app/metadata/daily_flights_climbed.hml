@@ -1,0 +1,105 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: daily_flights_climbed
+  fields:
+    - name: climb_date
+      type: timestamp
+    - name: daily_flights_climbed
+      type: numeric
+  graphql:
+    typeName: daily_flights_climbed
+    inputTypeName: daily_flights_climbed_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: daily_flights_climbed
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: daily_flights_climbed
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - climb_date
+          - daily_flights_climbed
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: daily_flights_climbed_bool_exp
+  operand:
+    object:
+      type: daily_flights_climbed
+      comparableFields:
+        - fieldName: climb_date
+          booleanExpressionType: timestamp_bool_exp
+        - fieldName: daily_flights_climbed
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: daily_flights_climbed_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: daily_flights_climbed_agg_exp
+  operand:
+    object:
+      aggregatedType: daily_flights_climbed
+      aggregatableFields:
+        - fieldName: climb_date
+          aggregateExpression: timestamp_agg_exp
+        - fieldName: daily_flights_climbed
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: daily_flights_climbed_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: daily_flights_climbed
+  objectType: daily_flights_climbed
+  source:
+    dataConnectorName: postgres
+    collection: daily_flights_climbed
+  filterExpressionType: daily_flights_climbed_bool_exp
+  aggregateExpression: daily_flights_climbed_agg_exp
+  orderableFields:
+    - fieldName: climb_date
+      orderByDirections:
+        enableAll: true
+    - fieldName: daily_flights_climbed
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: daily_flights_climbed
+    selectUniques: []
+    orderByExpressionType: daily_flights_climbed_order_by
+    filterInputTypeName: daily_flights_climbed_filter_input
+    aggregate:
+      queryRootField: daily_flights_climbed_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: daily_flights_climbed
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

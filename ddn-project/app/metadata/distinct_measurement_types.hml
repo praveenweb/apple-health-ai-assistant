@@ -1,0 +1,105 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: distinct_measurement_types
+  fields:
+    - name: type
+      type: varchar
+    - name: type_count
+      type: int8
+  graphql:
+    typeName: distinct_measurement_types
+    inputTypeName: distinct_measurement_types_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: distinct_measurement_types
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: distinct_measurement_types
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - type
+          - type_count
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: distinct_measurement_types_bool_exp
+  operand:
+    object:
+      type: distinct_measurement_types
+      comparableFields:
+        - fieldName: type
+          booleanExpressionType: varchar_bool_exp
+        - fieldName: type_count
+          booleanExpressionType: int8_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: distinct_measurement_types_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: distinct_measurement_types_agg_exp
+  operand:
+    object:
+      aggregatedType: distinct_measurement_types
+      aggregatableFields:
+        - fieldName: type
+          aggregateExpression: varchar_agg_exp
+        - fieldName: type_count
+          aggregateExpression: int8_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: distinct_measurement_types_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: distinct_measurement_types
+  objectType: distinct_measurement_types
+  source:
+    dataConnectorName: postgres
+    collection: distinct_measurement_types
+  filterExpressionType: distinct_measurement_types_bool_exp
+  aggregateExpression: distinct_measurement_types_agg_exp
+  orderableFields:
+    - fieldName: type
+      orderByDirections:
+        enableAll: true
+    - fieldName: type_count
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: distinct_measurement_types
+    selectUniques: []
+    orderByExpressionType: distinct_measurement_types_order_by
+    filterInputTypeName: distinct_measurement_types_filter_input
+    aggregate:
+      queryRootField: distinct_measurement_types_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: distinct_measurement_types
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

@@ -1,0 +1,135 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: daily_cardiovascular_metrics
+  fields:
+    - name: avg_oxygen_saturation
+      type: numeric
+    - name: date
+      type: timestamp
+    - name: hrv_sdnn
+      type: numeric
+    - name: resting_heart_rate
+      type: numeric
+    - name: vo2_max
+      type: numeric
+  graphql:
+    typeName: daily_cardiovascular_metrics
+    inputTypeName: daily_cardiovascular_metrics_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: daily_cardiovascular_metrics
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: daily_cardiovascular_metrics
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - avg_oxygen_saturation
+          - date
+          - hrv_sdnn
+          - resting_heart_rate
+          - vo2_max
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: daily_cardiovascular_metrics_bool_exp
+  operand:
+    object:
+      type: daily_cardiovascular_metrics
+      comparableFields:
+        - fieldName: avg_oxygen_saturation
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: date
+          booleanExpressionType: timestamp_bool_exp
+        - fieldName: hrv_sdnn
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: resting_heart_rate
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: vo2_max
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: daily_cardiovascular_metrics_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: daily_cardiovascular_metrics_agg_exp
+  operand:
+    object:
+      aggregatedType: daily_cardiovascular_metrics
+      aggregatableFields:
+        - fieldName: avg_oxygen_saturation
+          aggregateExpression: numeric_agg_exp
+        - fieldName: date
+          aggregateExpression: timestamp_agg_exp
+        - fieldName: hrv_sdnn
+          aggregateExpression: numeric_agg_exp
+        - fieldName: resting_heart_rate
+          aggregateExpression: numeric_agg_exp
+        - fieldName: vo2_max
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: daily_cardiovascular_metrics_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: daily_cardiovascular_metrics
+  objectType: daily_cardiovascular_metrics
+  source:
+    dataConnectorName: postgres
+    collection: daily_cardiovascular_metrics
+  filterExpressionType: daily_cardiovascular_metrics_bool_exp
+  aggregateExpression: daily_cardiovascular_metrics_agg_exp
+  orderableFields:
+    - fieldName: avg_oxygen_saturation
+      orderByDirections:
+        enableAll: true
+    - fieldName: date
+      orderByDirections:
+        enableAll: true
+    - fieldName: hrv_sdnn
+      orderByDirections:
+        enableAll: true
+    - fieldName: resting_heart_rate
+      orderByDirections:
+        enableAll: true
+    - fieldName: vo2_max
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: daily_cardiovascular_metrics
+    selectUniques: []
+    orderByExpressionType: daily_cardiovascular_metrics_order_by
+    filterInputTypeName: daily_cardiovascular_metrics_filter_input
+    aggregate:
+      queryRootField: daily_cardiovascular_metrics_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: daily_cardiovascular_metrics
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

@@ -1,0 +1,48 @@
+# Configuration used for adminer
+configs:
+  adminer-index.php:
+    content: |
+      <?php
+        if(!count($$_GET)) {
+          $$_POST['auth'] = [
+            'server' => $$_ENV['ADMINER_DEFAULT_SERVER'],
+            'username' => $$_ENV['ADMINER_DEFAULT_USERNAME'],
+            'password' => $$_ENV['ADMINER_DEFAULT_PASSWORD'],
+            'driver' => $$_ENV['ADMINER_DEFAULT_DRIVER'],
+            'db'    => $$_ENV['ADMINER_DEFAULT_DB'],
+          ];
+        }
+        include './adminer.php';
+      ?>
+services:
+  # Adminer is a lightweight database management tool (optional)
+  adminer:
+    configs:
+      - source: adminer-index.php
+        target: /var/www/html/index.php
+    depends_on:
+      - postgres
+    environment:
+      ADMINER_DEFAULT_DB: dev
+      ADMINER_DEFAULT_DRIVER: pgsql
+      ADMINER_DEFAULT_PASSWORD: password
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DEFAULT_USERNAME: user
+    image: adminer:latest
+    ports:
+      - 6636:8080
+    restart: unless-stopped
+  # Bundled Postgres database (optional)
+  postgres:
+    environment:
+      POSTGRES_DB: dev
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+    image: postgres:latest
+    ports:
+      - 9735:5432
+    restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/postgresql/data
+volumes:
+  db_data: {}

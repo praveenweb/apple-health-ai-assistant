@@ -1,0 +1,106 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: sources
+  description: 'Data sources that are used to collect data. Usually contains device information or apps used to collect all the data from Apple Watch or iPhone'
+  fields:
+    - name: records_count
+      type: int8
+    - name: sourcename
+      type: varchar
+  graphql:
+    typeName: sources
+    inputTypeName: sources_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: sources
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: sources
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - records_count
+          - sourcename
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: sources_bool_exp
+  operand:
+    object:
+      type: sources
+      comparableFields:
+        - fieldName: records_count
+          booleanExpressionType: int8_bool_exp
+        - fieldName: sourcename
+          booleanExpressionType: varchar_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: sources_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: sources_agg_exp
+  operand:
+    object:
+      aggregatedType: sources
+      aggregatableFields:
+        - fieldName: records_count
+          aggregateExpression: int8_agg_exp
+        - fieldName: sourcename
+          aggregateExpression: varchar_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: sources_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: sources
+  objectType: sources
+  source:
+    dataConnectorName: postgres
+    collection: sources
+  filterExpressionType: sources_bool_exp
+  aggregateExpression: sources_agg_exp
+  orderableFields:
+    - fieldName: records_count
+      orderByDirections:
+        enableAll: true
+    - fieldName: sourcename
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: sources
+    selectUniques: []
+    orderByExpressionType: sources_order_by
+    filterInputTypeName: sources_filter_input
+    aggregate:
+      queryRootField: sources_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: sources
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

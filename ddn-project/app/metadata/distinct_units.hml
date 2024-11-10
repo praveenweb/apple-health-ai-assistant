@@ -1,0 +1,105 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: distinct_units
+  fields:
+    - name: unit
+      type: varchar
+    - name: unit_count
+      type: int8
+  graphql:
+    typeName: distinct_units
+    inputTypeName: distinct_units_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: distinct_units
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: distinct_units
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - unit
+          - unit_count
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: distinct_units_bool_exp
+  operand:
+    object:
+      type: distinct_units
+      comparableFields:
+        - fieldName: unit
+          booleanExpressionType: varchar_bool_exp
+        - fieldName: unit_count
+          booleanExpressionType: int8_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: distinct_units_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: distinct_units_agg_exp
+  operand:
+    object:
+      aggregatedType: distinct_units
+      aggregatableFields:
+        - fieldName: unit
+          aggregateExpression: varchar_agg_exp
+        - fieldName: unit_count
+          aggregateExpression: int8_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: distinct_units_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: distinct_units
+  objectType: distinct_units
+  source:
+    dataConnectorName: postgres
+    collection: distinct_units
+  filterExpressionType: distinct_units_bool_exp
+  aggregateExpression: distinct_units_agg_exp
+  orderableFields:
+    - fieldName: unit
+      orderByDirections:
+        enableAll: true
+    - fieldName: unit_count
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: distinct_units
+    selectUniques: []
+    orderByExpressionType: distinct_units_order_by
+    filterInputTypeName: distinct_units_filter_input
+    aggregate:
+      queryRootField: distinct_units_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: distinct_units
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

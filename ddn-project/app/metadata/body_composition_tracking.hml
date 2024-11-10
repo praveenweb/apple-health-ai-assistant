@@ -1,0 +1,145 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: body_composition_tracking
+  fields:
+    - name: bmi
+      type: numeric
+    - name: body_fat_percentage
+      type: numeric
+    - name: date
+      type: timestamp
+    - name: lean_body_mass
+      type: numeric
+    - name: waist_circumference
+      type: numeric
+    - name: weight
+      type: numeric
+  graphql:
+    typeName: body_composition_tracking
+    inputTypeName: body_composition_tracking_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: body_composition_tracking
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: body_composition_tracking
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - bmi
+          - body_fat_percentage
+          - date
+          - lean_body_mass
+          - waist_circumference
+          - weight
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: body_composition_tracking_bool_exp
+  operand:
+    object:
+      type: body_composition_tracking
+      comparableFields:
+        - fieldName: bmi
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: body_fat_percentage
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: date
+          booleanExpressionType: timestamp_bool_exp
+        - fieldName: lean_body_mass
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: waist_circumference
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: weight
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: body_composition_tracking_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: body_composition_tracking_agg_exp
+  operand:
+    object:
+      aggregatedType: body_composition_tracking
+      aggregatableFields:
+        - fieldName: bmi
+          aggregateExpression: numeric_agg_exp
+        - fieldName: body_fat_percentage
+          aggregateExpression: numeric_agg_exp
+        - fieldName: date
+          aggregateExpression: timestamp_agg_exp
+        - fieldName: lean_body_mass
+          aggregateExpression: numeric_agg_exp
+        - fieldName: waist_circumference
+          aggregateExpression: numeric_agg_exp
+        - fieldName: weight
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: body_composition_tracking_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: body_composition_tracking
+  objectType: body_composition_tracking
+  source:
+    dataConnectorName: postgres
+    collection: body_composition_tracking
+  filterExpressionType: body_composition_tracking_bool_exp
+  aggregateExpression: body_composition_tracking_agg_exp
+  orderableFields:
+    - fieldName: bmi
+      orderByDirections:
+        enableAll: true
+    - fieldName: body_fat_percentage
+      orderByDirections:
+        enableAll: true
+    - fieldName: date
+      orderByDirections:
+        enableAll: true
+    - fieldName: lean_body_mass
+      orderByDirections:
+        enableAll: true
+    - fieldName: waist_circumference
+      orderByDirections:
+        enableAll: true
+    - fieldName: weight
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: body_composition_tracking
+    selectUniques: []
+    orderByExpressionType: body_composition_tracking_order_by
+    filterInputTypeName: body_composition_tracking_filter_input
+    aggregate:
+      queryRootField: body_composition_tracking_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: body_composition_tracking
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

@@ -1,0 +1,156 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: daily_nutrition_summary
+  description: 'Daily nutrition summary. This may not contain data since the user may not have logged their nutrition data for the day.'
+  fields:
+    - name: date
+      type: timestamp
+    - name: total_calories
+      type: numeric
+    - name: total_carbs
+      type: numeric
+    - name: total_fat
+      type: numeric
+    - name: total_fiber
+      type: numeric
+    - name: total_protein
+      type: numeric
+    - name: total_sugar
+      type: numeric
+  graphql:
+    typeName: daily_nutrition_summary
+    inputTypeName: daily_nutrition_summary_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: daily_nutrition_summary
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: daily_nutrition_summary
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - total_calories
+          - total_carbs
+          - total_fat
+          - total_fiber
+          - total_protein
+          - total_sugar
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: daily_nutrition_summary_bool_exp
+  operand:
+    object:
+      type: daily_nutrition_summary
+      comparableFields:
+        - fieldName: date
+          booleanExpressionType: timestamp_bool_exp
+        - fieldName: total_calories
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: total_carbs
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: total_fat
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: total_fiber
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: total_protein
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: total_sugar
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: daily_nutrition_summary_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: daily_nutrition_summary_agg_exp
+  operand:
+    object:
+      aggregatedType: daily_nutrition_summary
+      aggregatableFields:
+        - fieldName: date
+          aggregateExpression: timestamp_agg_exp
+        - fieldName: total_calories
+          aggregateExpression: numeric_agg_exp
+        - fieldName: total_carbs
+          aggregateExpression: numeric_agg_exp
+        - fieldName: total_fat
+          aggregateExpression: numeric_agg_exp
+        - fieldName: total_fiber
+          aggregateExpression: numeric_agg_exp
+        - fieldName: total_protein
+          aggregateExpression: numeric_agg_exp
+        - fieldName: total_sugar
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: daily_nutrition_summary_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: daily_nutrition_summary
+  objectType: daily_nutrition_summary
+  source:
+    dataConnectorName: postgres
+    collection: daily_nutrition_summary
+  filterExpressionType: daily_nutrition_summary_bool_exp
+  aggregateExpression: daily_nutrition_summary_agg_exp
+  orderableFields:
+    - fieldName: date
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_calories
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_carbs
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_fat
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_fiber
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_protein
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_sugar
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: daily_nutrition_summary
+    selectUniques: []
+    orderByExpressionType: daily_nutrition_summary_order_by
+    filterInputTypeName: daily_nutrition_summary_filter_input
+    aggregate:
+      queryRootField: daily_nutrition_summary_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: daily_nutrition_summary
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

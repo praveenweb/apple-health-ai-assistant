@@ -1,0 +1,115 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: daily_stand_hours
+  fields:
+    - name: sourcename
+      type: varchar
+    - name: stand_day
+      type: timestamp
+    - name: stand_hours_per_day
+      type: int8
+  graphql:
+    typeName: daily_stand_hours
+    inputTypeName: daily_stand_hours_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: daily_stand_hours
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: daily_stand_hours
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - sourcename
+          - stand_day
+          - stand_hours_per_day
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: daily_stand_hours_bool_exp
+  operand:
+    object:
+      type: daily_stand_hours
+      comparableFields:
+        - fieldName: sourcename
+          booleanExpressionType: varchar_bool_exp
+        - fieldName: stand_day
+          booleanExpressionType: timestamp_bool_exp
+        - fieldName: stand_hours_per_day
+          booleanExpressionType: int8_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: daily_stand_hours_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: daily_stand_hours_agg_exp
+  operand:
+    object:
+      aggregatedType: daily_stand_hours
+      aggregatableFields:
+        - fieldName: sourcename
+          aggregateExpression: varchar_agg_exp
+        - fieldName: stand_day
+          aggregateExpression: timestamp_agg_exp
+        - fieldName: stand_hours_per_day
+          aggregateExpression: int8_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: daily_stand_hours_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: daily_stand_hours
+  objectType: daily_stand_hours
+  source:
+    dataConnectorName: postgres
+    collection: daily_stand_hours
+  filterExpressionType: daily_stand_hours_bool_exp
+  aggregateExpression: daily_stand_hours_agg_exp
+  orderableFields:
+    - fieldName: sourcename
+      orderByDirections:
+        enableAll: true
+    - fieldName: stand_day
+      orderByDirections:
+        enableAll: true
+    - fieldName: stand_hours_per_day
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: daily_stand_hours
+    selectUniques: []
+    orderByExpressionType: daily_stand_hours_order_by
+    filterInputTypeName: daily_stand_hours_filter_input
+    aggregate:
+      queryRootField: daily_stand_hours_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: daily_stand_hours
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

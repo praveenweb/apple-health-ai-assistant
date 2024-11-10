@@ -1,0 +1,3383 @@
+kind: DataConnectorLink
+version: v1
+definition:
+  name: postgres
+  url:
+    readWriteUrls:
+      read:
+        valueFromEnv: APP_POSTGRES_READ_URL
+      write:
+        valueFromEnv: APP_POSTGRES_WRITE_URL
+  headers:
+    Authorization:
+      valueFromEnv: APP_POSTGRES_AUTHORIZATION_HEADER
+  schema:
+    version: v0.1
+    schema:
+      scalar_types:
+        bool:
+          representation:
+            type: boolean
+          aggregate_functions:
+            bool_and:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: bool
+            bool_or:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: bool
+            every:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: bool
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: bool
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: bool
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: bool
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: bool
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: bool
+        date:
+          representation:
+            type: date
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: date
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: date
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+        int4:
+          representation:
+            type: int32
+          aggregate_functions:
+            avg:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            bit_and:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            bit_or:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            bit_xor:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            stddev:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sum:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            var_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            variance:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+        int8:
+          representation:
+            type: int64
+          aggregate_functions:
+            avg:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            bit_and:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            bit_or:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            bit_xor:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            stddev:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sum:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            variance:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+        numeric:
+          representation:
+            type: bigdecimal
+          aggregate_functions:
+            avg:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sum:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            variance:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+        text:
+          representation:
+            type: string
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _ilike:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _in:
+              type: in
+            _iregex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _like:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _nilike:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _niregex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _nlike:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _nregex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _regex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            starts_with:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            ts_match_tt:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+        timestamp:
+          representation:
+            type: timestamp
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+        timestamptz:
+          representation:
+            type: timestamptz
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamptz
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamptz
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamptz
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamptz
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamptz
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamptz
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamptz
+        varchar:
+          representation:
+            type: string
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _ilike:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _in:
+              type: in
+            _iregex:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _like:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _nilike:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _niregex:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _nlike:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _nregex:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _regex:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            starts_with:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            ts_match_tt:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+      object_types:
+        app_user:
+          fields:
+            blood_type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            cardio_fitness_medications_use:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            date_of_birth:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: date
+            id:
+              type:
+                type: named
+                name: int4
+            sex:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            skin_type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            wheelchair_use:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: bool
+        body_composition_tracking:
+          fields:
+            bmi:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            body_fat_percentage:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            lean_body_mass:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            waist_circumference:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            weight:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        daily_activity_summary:
+          fields:
+            active_calories:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            basal_calories:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            exercise_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            total_steps:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        daily_basal_energy_burned:
+          fields:
+            burn_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            daily_basal_energy_burned:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            unit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        daily_blood_pressure_summary:
+          fields:
+            avg_diastolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            avg_systolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            max_diastolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            max_systolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            min_diastolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            min_systolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        daily_cardiovascular_metrics:
+          fields:
+            avg_oxygen_saturation:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            hrv_sdnn:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            resting_heart_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            vo2_max:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        daily_environmental_exposure:
+          fields:
+            avg_sound_reduction:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            daylight_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            max_environmental_audio_db:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        daily_exercise_minutes:
+          fields:
+            daily_exercise_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            exercise_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+        daily_fat_composition:
+          fields:
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            monounsaturated_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            polyunsaturated_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            saturated_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        daily_flights_climbed:
+          fields:
+            climb_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            daily_flights_climbed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        daily_max_audio_exposure_dbaspl_levels:
+          fields:
+            daily_max_exposure_levels:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            exposure_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            unit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        daily_mobility_metrics:
+          fields:
+            avg_step_length:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            avg_walking_speed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            double_support_percentage:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stair_ascent_speed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stair_descent_speed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            walking_asymmetry:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        daily_nutrition_summary:
+          fields:
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            total_calories:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_carbs:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_fiber:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_protein:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_sugar:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        daily_sleep_analysis:
+          fields:
+            duration_hours:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            duration_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            duration_seconds:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            night_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            sleep_stage:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        daily_stand_hours:
+          fields:
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            stand_day:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            stand_hours_per_day:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+        daily_standing_minutes:
+          fields:
+            stand_day:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            total_standing_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        delete_app_user_by_id_response:
+          description: Responses from the 'delete_app_user_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: app_user
+        distinct_measurement_types:
+          fields:
+            type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            type_count:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+        distinct_units:
+          fields:
+            unit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            unit_count:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+        health_data:
+          fields:
+            creationdate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            enddate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            sourceversion:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            startdate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            unit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            value:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        heart_rate_zones_patterns:
+          fields:
+            avg_heart_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            heart_rate_zone:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            hour:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            max_heart_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            measurements:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            min_heart_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_app_user_object:
+          fields:
+            blood_type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            cardio_fitness_medications_use:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            date_of_birth:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: date
+            id:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            sex:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            skin_type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            wheelchair_use:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: bool
+        insert_app_user_response:
+          description: Responses from the 'insert_app_user' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: app_user
+        insert_body_composition_tracking_object:
+          fields:
+            bmi:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            body_fat_percentage:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            lean_body_mass:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            waist_circumference:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            weight:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_body_composition_tracking_response:
+          description: Responses from the 'insert_body_composition_tracking' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: body_composition_tracking
+        insert_daily_activity_summary_object:
+          fields:
+            active_calories:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            basal_calories:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            exercise_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            total_steps:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_daily_activity_summary_response:
+          description: Responses from the 'insert_daily_activity_summary' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_activity_summary
+        insert_daily_basal_energy_burned_object:
+          fields:
+            burn_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            daily_basal_energy_burned:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            unit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        insert_daily_basal_energy_burned_response:
+          description: Responses from the 'insert_daily_basal_energy_burned' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_basal_energy_burned
+        insert_daily_blood_pressure_summary_object:
+          fields:
+            avg_diastolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            avg_systolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            max_diastolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            max_systolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            min_diastolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            min_systolic:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_daily_blood_pressure_summary_response:
+          description: Responses from the 'insert_daily_blood_pressure_summary' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_blood_pressure_summary
+        insert_daily_cardiovascular_metrics_object:
+          fields:
+            avg_oxygen_saturation:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            hrv_sdnn:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            resting_heart_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            vo2_max:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_daily_cardiovascular_metrics_response:
+          description: Responses from the 'insert_daily_cardiovascular_metrics' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_cardiovascular_metrics
+        insert_daily_environmental_exposure_object:
+          fields:
+            avg_sound_reduction:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            daylight_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            max_environmental_audio_db:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_daily_environmental_exposure_response:
+          description: Responses from the 'insert_daily_environmental_exposure' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_environmental_exposure
+        insert_daily_exercise_minutes_object:
+          fields:
+            daily_exercise_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            exercise_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+        insert_daily_exercise_minutes_response:
+          description: Responses from the 'insert_daily_exercise_minutes' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_exercise_minutes
+        insert_daily_fat_composition_object:
+          fields:
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            monounsaturated_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            polyunsaturated_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            saturated_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_daily_fat_composition_response:
+          description: Responses from the 'insert_daily_fat_composition' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_fat_composition
+        insert_daily_flights_climbed_object:
+          fields:
+            climb_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            daily_flights_climbed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_daily_flights_climbed_response:
+          description: Responses from the 'insert_daily_flights_climbed' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_flights_climbed
+        insert_daily_max_audio_exposure_dbaspl_levels_object:
+          fields:
+            daily_max_exposure_levels:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            exposure_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            unit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        insert_daily_max_audio_exposure_dbaspl_levels_response:
+          description: Responses from the 'insert_daily_max_audio_exposure_dbaspl_levels' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_max_audio_exposure_dbaspl_levels
+        insert_daily_mobility_metrics_object:
+          fields:
+            avg_step_length:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            avg_walking_speed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            double_support_percentage:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stair_ascent_speed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stair_descent_speed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            walking_asymmetry:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_daily_mobility_metrics_response:
+          description: Responses from the 'insert_daily_mobility_metrics' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_mobility_metrics
+        insert_daily_nutrition_summary_object:
+          fields:
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            total_calories:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_carbs:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_fat:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_fiber:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_protein:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            total_sugar:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_daily_nutrition_summary_response:
+          description: Responses from the 'insert_daily_nutrition_summary' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_nutrition_summary
+        insert_daily_sleep_analysis_object:
+          fields:
+            duration_hours:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            duration_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            duration_seconds:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            night_date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            sleep_stage:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        insert_daily_sleep_analysis_response:
+          description: Responses from the 'insert_daily_sleep_analysis' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_sleep_analysis
+        insert_daily_stand_hours_object:
+          fields:
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            stand_day:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            stand_hours_per_day:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+        insert_daily_stand_hours_response:
+          description: Responses from the 'insert_daily_stand_hours' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_stand_hours
+        insert_daily_standing_minutes_object:
+          fields:
+            stand_day:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            total_standing_minutes:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_daily_standing_minutes_response:
+          description: Responses from the 'insert_daily_standing_minutes' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: daily_standing_minutes
+        insert_distinct_measurement_types_object:
+          fields:
+            type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            type_count:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+        insert_distinct_measurement_types_response:
+          description: Responses from the 'insert_distinct_measurement_types' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: distinct_measurement_types
+        insert_distinct_units_object:
+          fields:
+            unit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            unit_count:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+        insert_distinct_units_response:
+          description: Responses from the 'insert_distinct_units' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: distinct_units
+        insert_health_data_object:
+          fields:
+            creationdate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            enddate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            sourceversion:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            startdate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            type:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            unit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            value:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_health_data_response:
+          description: Responses from the 'insert_health_data' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: health_data
+        insert_heart_rate_zones_patterns_object:
+          fields:
+            avg_heart_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            heart_rate_zone:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            hour:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            max_heart_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            measurements:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            min_heart_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_heart_rate_zones_patterns_response:
+          description: Responses from the 'insert_heart_rate_zones_patterns' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: heart_rate_zones_patterns
+        insert_respiratory_health_metrics_object:
+          fields:
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            fev1:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            oxygen_saturation:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            respiratory_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            vital_capacity:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_respiratory_health_metrics_response:
+          description: Responses from the 'insert_respiratory_health_metrics' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: respiratory_health_metrics
+        insert_running_performance_analysis_object:
+          fields:
+            avg_running_power:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            avg_running_speed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            ground_contact_time:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stride_length:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            vertical_oscillation:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        insert_running_performance_analysis_response:
+          description: Responses from the 'insert_running_performance_analysis' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: running_performance_analysis
+        insert_sources_object:
+          fields:
+            records_count:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        insert_sources_response:
+          description: Responses from the 'insert_sources' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: sources
+        insert_workouts_object:
+          fields:
+            creationdate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamptz
+            device:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            duration:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            durationunit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            enddate:
+              type:
+                type: named
+                name: timestamptz
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            sourceversion:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            startdate:
+              type:
+                type: named
+                name: timestamptz
+            totaldistance:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            totaldistanceunit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            totalenergyburned:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            totalenergyburnedunit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            workoutactivitytype:
+              type:
+                type: named
+                name: varchar
+        insert_workouts_response:
+          description: Responses from the 'insert_workouts' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: workouts
+        respiratory_health_metrics:
+          fields:
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            fev1:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            oxygen_saturation:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            respiratory_rate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            vital_capacity:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        running_performance_analysis:
+          fields:
+            avg_running_power:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            avg_running_speed:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            date:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            ground_contact_time:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stride_length:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            vertical_oscillation:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+        sources:
+          fields:
+            records_count:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        update_app_user_by_id_response:
+          description: Responses from the 'update_app_user_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: app_user
+        update_app_user_by_id_update_columns:
+          description: Update the columns of the 'app_user' collection
+          fields:
+            blood_type:
+              description: Update the 'blood_type' column in the 'app_user' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_app_user_blood_type
+            cardio_fitness_medications_use:
+              description: Update the 'cardio_fitness_medications_use' column in the 'app_user' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_app_user_cardio_fitness_medications_use
+            date_of_birth:
+              description: Update the 'date_of_birth' column in the 'app_user' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_app_user_date_of_birth
+            id:
+              description: Update the 'id' column in the 'app_user' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_app_user_id
+            sex:
+              description: Update the 'sex' column in the 'app_user' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_app_user_sex
+            skin_type:
+              description: Update the 'skin_type' column in the 'app_user' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_app_user_skin_type
+            wheelchair_use:
+              description: Update the 'wheelchair_use' column in the 'app_user' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_app_user_wheelchair_use
+        update_column_app_user_blood_type:
+          description: Update the 'blood_type' column in the 'app_user' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        update_column_app_user_cardio_fitness_medications_use:
+          description: Update the 'cardio_fitness_medications_use' column in the 'app_user' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        update_column_app_user_date_of_birth:
+          description: Update the 'date_of_birth' column in the 'app_user' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: date
+        update_column_app_user_id:
+          description: Update the 'id' column in the 'app_user' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_app_user_sex:
+          description: Update the 'sex' column in the 'app_user' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        update_column_app_user_skin_type:
+          description: Update the 'skin_type' column in the 'app_user' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+        update_column_app_user_wheelchair_use:
+          description: Update the 'wheelchair_use' column in the 'app_user' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: bool
+        workouts:
+          fields:
+            creationdate:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamptz
+            device:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            duration:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            durationunit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            enddate:
+              type:
+                type: named
+                name: timestamptz
+            sourcename:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            sourceversion:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            startdate:
+              type:
+                type: named
+                name: timestamptz
+            totaldistance:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            totaldistanceunit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            totalenergyburned:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            totalenergyburnedunit:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: varchar
+            workoutactivitytype:
+              type:
+                type: named
+                name: varchar
+      collections:
+        - name: app_user
+          arguments: {}
+          type: app_user
+          uniqueness_constraints:
+            app_user_pkey:
+              unique_columns:
+                - id
+          foreign_keys: {}
+        - name: body_composition_tracking
+          arguments: {}
+          type: body_composition_tracking
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_activity_summary
+          arguments: {}
+          type: daily_activity_summary
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_basal_energy_burned
+          arguments: {}
+          type: daily_basal_energy_burned
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_blood_pressure_summary
+          arguments: {}
+          type: daily_blood_pressure_summary
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_cardiovascular_metrics
+          arguments: {}
+          type: daily_cardiovascular_metrics
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_environmental_exposure
+          arguments: {}
+          type: daily_environmental_exposure
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_exercise_minutes
+          arguments: {}
+          type: daily_exercise_minutes
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_fat_composition
+          arguments: {}
+          type: daily_fat_composition
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_flights_climbed
+          arguments: {}
+          type: daily_flights_climbed
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_max_audio_exposure_dbaspl_levels
+          arguments: {}
+          type: daily_max_audio_exposure_dbaspl_levels
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_mobility_metrics
+          arguments: {}
+          type: daily_mobility_metrics
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_nutrition_summary
+          arguments: {}
+          type: daily_nutrition_summary
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_sleep_analysis
+          arguments: {}
+          type: daily_sleep_analysis
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_stand_hours
+          arguments: {}
+          type: daily_stand_hours
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: daily_standing_minutes
+          arguments: {}
+          type: daily_standing_minutes
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: distinct_measurement_types
+          arguments: {}
+          type: distinct_measurement_types
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: distinct_units
+          arguments: {}
+          type: distinct_units
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: health_data
+          arguments: {}
+          type: health_data
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: heart_rate_zones_patterns
+          arguments: {}
+          type: heart_rate_zones_patterns
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: respiratory_health_metrics
+          arguments: {}
+          type: respiratory_health_metrics
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: running_performance_analysis
+          arguments: {}
+          type: running_performance_analysis
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: sources
+          arguments: {}
+          type: sources
+          uniqueness_constraints: {}
+          foreign_keys: {}
+        - name: workouts
+          arguments: {}
+          type: workouts
+          uniqueness_constraints: {}
+          foreign_keys: {}
+      functions: []
+      procedures:
+        - name: delete_app_user_by_id
+          description: Delete any row on the 'app_user' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            pre_check:
+              description: Delete permission predicate over the 'app_user' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: app_user
+          result_type:
+            type: named
+            name: delete_app_user_by_id_response
+        - name: insert_app_user
+          description: Insert into the app_user table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_app_user_object
+            post_check:
+              description: Insert permission predicate over the 'app_user' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: app_user
+          result_type:
+            type: named
+            name: insert_app_user_response
+        - name: insert_body_composition_tracking
+          description: Insert into the body_composition_tracking table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_body_composition_tracking_object
+            post_check:
+              description: Insert permission predicate over the 'body_composition_tracking' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: body_composition_tracking
+          result_type:
+            type: named
+            name: insert_body_composition_tracking_response
+        - name: insert_daily_activity_summary
+          description: Insert into the daily_activity_summary table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_activity_summary_object
+            post_check:
+              description: Insert permission predicate over the 'daily_activity_summary' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_activity_summary
+          result_type:
+            type: named
+            name: insert_daily_activity_summary_response
+        - name: insert_daily_basal_energy_burned
+          description: Insert into the daily_basal_energy_burned table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_basal_energy_burned_object
+            post_check:
+              description: Insert permission predicate over the 'daily_basal_energy_burned' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_basal_energy_burned
+          result_type:
+            type: named
+            name: insert_daily_basal_energy_burned_response
+        - name: insert_daily_blood_pressure_summary
+          description: Insert into the daily_blood_pressure_summary table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_blood_pressure_summary_object
+            post_check:
+              description: Insert permission predicate over the 'daily_blood_pressure_summary' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_blood_pressure_summary
+          result_type:
+            type: named
+            name: insert_daily_blood_pressure_summary_response
+        - name: insert_daily_cardiovascular_metrics
+          description: Insert into the daily_cardiovascular_metrics table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_cardiovascular_metrics_object
+            post_check:
+              description: Insert permission predicate over the 'daily_cardiovascular_metrics' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_cardiovascular_metrics
+          result_type:
+            type: named
+            name: insert_daily_cardiovascular_metrics_response
+        - name: insert_daily_environmental_exposure
+          description: Insert into the daily_environmental_exposure table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_environmental_exposure_object
+            post_check:
+              description: Insert permission predicate over the 'daily_environmental_exposure' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_environmental_exposure
+          result_type:
+            type: named
+            name: insert_daily_environmental_exposure_response
+        - name: insert_daily_exercise_minutes
+          description: Insert into the daily_exercise_minutes table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_exercise_minutes_object
+            post_check:
+              description: Insert permission predicate over the 'daily_exercise_minutes' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_exercise_minutes
+          result_type:
+            type: named
+            name: insert_daily_exercise_minutes_response
+        - name: insert_daily_fat_composition
+          description: Insert into the daily_fat_composition table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_fat_composition_object
+            post_check:
+              description: Insert permission predicate over the 'daily_fat_composition' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_fat_composition
+          result_type:
+            type: named
+            name: insert_daily_fat_composition_response
+        - name: insert_daily_flights_climbed
+          description: Insert into the daily_flights_climbed table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_flights_climbed_object
+            post_check:
+              description: Insert permission predicate over the 'daily_flights_climbed' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_flights_climbed
+          result_type:
+            type: named
+            name: insert_daily_flights_climbed_response
+        - name: insert_daily_max_audio_exposure_dbaspl_levels
+          description: Insert into the daily_max_audio_exposure_dbaspl_levels table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_max_audio_exposure_dbaspl_levels_object
+            post_check:
+              description: Insert permission predicate over the 'daily_max_audio_exposure_dbaspl_levels' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_max_audio_exposure_dbaspl_levels
+          result_type:
+            type: named
+            name: insert_daily_max_audio_exposure_dbaspl_levels_response
+        - name: insert_daily_mobility_metrics
+          description: Insert into the daily_mobility_metrics table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_mobility_metrics_object
+            post_check:
+              description: Insert permission predicate over the 'daily_mobility_metrics' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_mobility_metrics
+          result_type:
+            type: named
+            name: insert_daily_mobility_metrics_response
+        - name: insert_daily_nutrition_summary
+          description: Insert into the daily_nutrition_summary table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_nutrition_summary_object
+            post_check:
+              description: Insert permission predicate over the 'daily_nutrition_summary' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_nutrition_summary
+          result_type:
+            type: named
+            name: insert_daily_nutrition_summary_response
+        - name: insert_daily_sleep_analysis
+          description: Insert into the daily_sleep_analysis table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_sleep_analysis_object
+            post_check:
+              description: Insert permission predicate over the 'daily_sleep_analysis' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_sleep_analysis
+          result_type:
+            type: named
+            name: insert_daily_sleep_analysis_response
+        - name: insert_daily_stand_hours
+          description: Insert into the daily_stand_hours table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_stand_hours_object
+            post_check:
+              description: Insert permission predicate over the 'daily_stand_hours' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_stand_hours
+          result_type:
+            type: named
+            name: insert_daily_stand_hours_response
+        - name: insert_daily_standing_minutes
+          description: Insert into the daily_standing_minutes table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_daily_standing_minutes_object
+            post_check:
+              description: Insert permission predicate over the 'daily_standing_minutes' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: daily_standing_minutes
+          result_type:
+            type: named
+            name: insert_daily_standing_minutes_response
+        - name: insert_distinct_measurement_types
+          description: Insert into the distinct_measurement_types table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_distinct_measurement_types_object
+            post_check:
+              description: Insert permission predicate over the 'distinct_measurement_types' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: distinct_measurement_types
+          result_type:
+            type: named
+            name: insert_distinct_measurement_types_response
+        - name: insert_distinct_units
+          description: Insert into the distinct_units table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_distinct_units_object
+            post_check:
+              description: Insert permission predicate over the 'distinct_units' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: distinct_units
+          result_type:
+            type: named
+            name: insert_distinct_units_response
+        - name: insert_health_data
+          description: Insert into the health_data table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_health_data_object
+            post_check:
+              description: Insert permission predicate over the 'health_data' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: health_data
+          result_type:
+            type: named
+            name: insert_health_data_response
+        - name: insert_heart_rate_zones_patterns
+          description: Insert into the heart_rate_zones_patterns table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_heart_rate_zones_patterns_object
+            post_check:
+              description: Insert permission predicate over the 'heart_rate_zones_patterns' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: heart_rate_zones_patterns
+          result_type:
+            type: named
+            name: insert_heart_rate_zones_patterns_response
+        - name: insert_respiratory_health_metrics
+          description: Insert into the respiratory_health_metrics table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_respiratory_health_metrics_object
+            post_check:
+              description: Insert permission predicate over the 'respiratory_health_metrics' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: respiratory_health_metrics
+          result_type:
+            type: named
+            name: insert_respiratory_health_metrics_response
+        - name: insert_running_performance_analysis
+          description: Insert into the running_performance_analysis table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_running_performance_analysis_object
+            post_check:
+              description: Insert permission predicate over the 'running_performance_analysis' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: running_performance_analysis
+          result_type:
+            type: named
+            name: insert_running_performance_analysis_response
+        - name: insert_sources
+          description: Insert into the sources table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_sources_object
+            post_check:
+              description: Insert permission predicate over the 'sources' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: sources
+          result_type:
+            type: named
+            name: insert_sources_response
+        - name: insert_workouts
+          description: Insert into the workouts table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_workouts_object
+            post_check:
+              description: Insert permission predicate over the 'workouts' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: workouts
+          result_type:
+            type: named
+            name: insert_workouts_response
+        - name: update_app_user_by_id
+          description: Update any row on the 'app_user' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            post_check:
+              description: Update permission post-condition predicate over the 'app_user' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: app_user
+            pre_check:
+              description: Update permission pre-condition predicate over the 'app_user' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: app_user
+            update_columns:
+              type:
+                type: named
+                name: update_app_user_by_id_update_columns
+          result_type:
+            type: named
+            name: update_app_user_by_id_response
+    capabilities:
+      version: 0.1.6
+      capabilities:
+        query:
+          aggregates: {}
+          variables: {}
+          explain: {}
+          nested_fields:
+            filter_by: {}
+            order_by: {}
+          exists:
+            nested_collections: {}
+        mutation:
+          transactional: {}
+          explain: {}
+        relationships:
+          relation_comparisons: {}
+          order_by_aggregate: {}

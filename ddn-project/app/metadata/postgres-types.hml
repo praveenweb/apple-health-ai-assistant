@@ -1,0 +1,884 @@
+---
+kind: ScalarType
+version: v1
+definition:
+  name: varchar
+  graphql:
+    typeName: varchar
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: varchar_bool_exp
+  operand:
+    scalar:
+      type: varchar
+      comparisonOperators:
+        - name: _eq
+          argumentType: varchar!
+        - name: _gt
+          argumentType: varchar!
+        - name: _gte
+          argumentType: varchar!
+        - name: _ilike
+          argumentType: varchar!
+        - name: _in
+          argumentType: "[varchar!]!"
+        - name: _iregex
+          argumentType: varchar!
+        - name: _like
+          argumentType: varchar!
+        - name: _lt
+          argumentType: varchar!
+        - name: _lte
+          argumentType: varchar!
+        - name: _neq
+          argumentType: varchar!
+        - name: _nilike
+          argumentType: varchar!
+        - name: _niregex
+          argumentType: varchar!
+        - name: _nlike
+          argumentType: varchar!
+        - name: _nregex
+          argumentType: varchar!
+        - name: _regex
+          argumentType: varchar!
+        - name: starts_with
+          argumentType: varchar!
+        - name: ts_match_tt
+          argumentType: varchar!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: varchar
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: varchar_bool_exp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: postgres
+  dataConnectorScalarType: varchar
+  representation: varchar
+  graphql:
+    comparisonExpressionTypeName: varchar_comparison_exp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: date
+  graphql:
+    typeName: date
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: date_bool_exp
+  operand:
+    scalar:
+      type: date
+      comparisonOperators:
+        - name: _eq
+          argumentType: date!
+        - name: _gt
+          argumentType: date!
+        - name: _gte
+          argumentType: date!
+        - name: _in
+          argumentType: "[date!]!"
+        - name: _lt
+          argumentType: date!
+        - name: _lte
+          argumentType: date!
+        - name: _neq
+          argumentType: date!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: date
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: date_bool_exp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: postgres
+  dataConnectorScalarType: date
+  representation: date
+  graphql:
+    comparisonExpressionTypeName: date_comparison_exp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: int4
+  graphql:
+    typeName: int4
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: int4_bool_exp
+  operand:
+    scalar:
+      type: int4
+      comparisonOperators:
+        - name: _eq
+          argumentType: int4!
+        - name: _gt
+          argumentType: int4!
+        - name: _gte
+          argumentType: int4!
+        - name: _in
+          argumentType: "[int4!]!"
+        - name: _lt
+          argumentType: int4!
+        - name: _lte
+          argumentType: int4!
+        - name: _neq
+          argumentType: int4!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: int4
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: int4_bool_exp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: postgres
+  dataConnectorScalarType: int4
+  representation: int4
+  graphql:
+    comparisonExpressionTypeName: int4_comparison_exp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: bool
+  graphql:
+    typeName: bool
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: bool_bool_exp
+  operand:
+    scalar:
+      type: bool
+      comparisonOperators:
+        - name: _eq
+          argumentType: bool!
+        - name: _gt
+          argumentType: bool!
+        - name: _gte
+          argumentType: bool!
+        - name: _in
+          argumentType: "[bool!]!"
+        - name: _lt
+          argumentType: bool!
+        - name: _lte
+          argumentType: bool!
+        - name: _neq
+          argumentType: bool!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: bool
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: bool_bool_exp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: postgres
+  dataConnectorScalarType: bool
+  representation: bool
+  graphql:
+    comparisonExpressionTypeName: bool_comparison_exp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: text
+  graphql:
+    typeName: text
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: text_bool_exp
+  operand:
+    scalar:
+      type: text
+      comparisonOperators:
+        - name: _eq
+          argumentType: text!
+        - name: _gt
+          argumentType: text!
+        - name: _gte
+          argumentType: text!
+        - name: _ilike
+          argumentType: text!
+        - name: _in
+          argumentType: "[text!]!"
+        - name: _iregex
+          argumentType: text!
+        - name: _like
+          argumentType: text!
+        - name: _lt
+          argumentType: text!
+        - name: _lte
+          argumentType: text!
+        - name: _neq
+          argumentType: text!
+        - name: _nilike
+          argumentType: text!
+        - name: _niregex
+          argumentType: text!
+        - name: _nlike
+          argumentType: text!
+        - name: _nregex
+          argumentType: text!
+        - name: _regex
+          argumentType: text!
+        - name: starts_with
+          argumentType: text!
+        - name: ts_match_tt
+          argumentType: text!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: text
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: text_bool_exp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: postgres
+  dataConnectorScalarType: text
+  representation: text
+  graphql:
+    comparisonExpressionTypeName: text_comparison_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: varchar_agg_exp
+  operand:
+    scalar:
+      aggregatedType: varchar
+      aggregationFunctions:
+        - name: max
+          returnType: text
+        - name: min
+          returnType: text
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: varchar
+          functionMapping:
+            max:
+              name: max
+            min:
+              name: min
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: varchar_agg_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: date_agg_exp
+  operand:
+    scalar:
+      aggregatedType: date
+      aggregationFunctions:
+        - name: max
+          returnType: date
+        - name: min
+          returnType: date
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: date
+          functionMapping:
+            max:
+              name: max
+            min:
+              name: min
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: date_agg_exp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: numeric
+  graphql:
+    typeName: numeric
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: numeric_bool_exp
+  operand:
+    scalar:
+      type: numeric
+      comparisonOperators:
+        - name: _eq
+          argumentType: numeric!
+        - name: _gt
+          argumentType: numeric!
+        - name: _gte
+          argumentType: numeric!
+        - name: _in
+          argumentType: "[numeric!]!"
+        - name: _lt
+          argumentType: numeric!
+        - name: _lte
+          argumentType: numeric!
+        - name: _neq
+          argumentType: numeric!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: numeric
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: numeric_bool_exp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: postgres
+  dataConnectorScalarType: numeric
+  representation: numeric
+  graphql:
+    comparisonExpressionTypeName: numeric_comparison_exp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: int8
+  graphql:
+    typeName: int8
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: int8_bool_exp
+  operand:
+    scalar:
+      type: int8
+      comparisonOperators:
+        - name: _eq
+          argumentType: int8!
+        - name: _gt
+          argumentType: int8!
+        - name: _gte
+          argumentType: int8!
+        - name: _in
+          argumentType: "[int8!]!"
+        - name: _lt
+          argumentType: int8!
+        - name: _lte
+          argumentType: int8!
+        - name: _neq
+          argumentType: int8!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: int8
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: int8_bool_exp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: postgres
+  dataConnectorScalarType: int8
+  representation: int8
+  graphql:
+    comparisonExpressionTypeName: int8_comparison_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: int4_agg_exp
+  operand:
+    scalar:
+      aggregatedType: int4
+      aggregationFunctions:
+        - name: avg
+          returnType: numeric
+        - name: bit_and
+          returnType: int4
+        - name: bit_or
+          returnType: int4
+        - name: bit_xor
+          returnType: int4
+        - name: max
+          returnType: int4
+        - name: min
+          returnType: int4
+        - name: stddev
+          returnType: numeric
+        - name: stddev_pop
+          returnType: numeric
+        - name: stddev_samp
+          returnType: numeric
+        - name: sum
+          returnType: int8
+        - name: var_pop
+          returnType: numeric
+        - name: var_samp
+          returnType: numeric
+        - name: variance
+          returnType: numeric
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: int4
+          functionMapping:
+            avg:
+              name: avg
+            bit_and:
+              name: bit_and
+            bit_or:
+              name: bit_or
+            bit_xor:
+              name: bit_xor
+            max:
+              name: max
+            min:
+              name: min
+            stddev:
+              name: stddev
+            stddev_pop:
+              name: stddev_pop
+            stddev_samp:
+              name: stddev_samp
+            sum:
+              name: sum
+            var_pop:
+              name: var_pop
+            var_samp:
+              name: var_samp
+            variance:
+              name: variance
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: int4_agg_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: bool_agg_exp
+  operand:
+    scalar:
+      aggregatedType: bool
+      aggregationFunctions:
+        - name: bool_and
+          returnType: bool
+        - name: bool_or
+          returnType: bool
+        - name: every
+          returnType: bool
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: bool
+          functionMapping:
+            bool_and:
+              name: bool_and
+            bool_or:
+              name: bool_or
+            every:
+              name: every
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: bool_agg_exp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: timestamp
+  graphql:
+    typeName: timestamp
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: timestamp_bool_exp
+  operand:
+    scalar:
+      type: timestamp
+      comparisonOperators:
+        - name: _eq
+          argumentType: timestamp!
+        - name: _gt
+          argumentType: timestamp!
+        - name: _gte
+          argumentType: timestamp!
+        - name: _in
+          argumentType: "[timestamp!]!"
+        - name: _lt
+          argumentType: timestamp!
+        - name: _lte
+          argumentType: timestamp!
+        - name: _neq
+          argumentType: timestamp!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: timestamp
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: timestamp_bool_exp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: postgres
+  dataConnectorScalarType: timestamp
+  representation: timestamp
+  graphql:
+    comparisonExpressionTypeName: timestamp_comparison_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: numeric_agg_exp
+  operand:
+    scalar:
+      aggregatedType: numeric
+      aggregationFunctions:
+        - name: avg
+          returnType: numeric
+        - name: max
+          returnType: numeric
+        - name: min
+          returnType: numeric
+        - name: stddev
+          returnType: numeric
+        - name: stddev_pop
+          returnType: numeric
+        - name: stddev_samp
+          returnType: numeric
+        - name: sum
+          returnType: numeric
+        - name: var_pop
+          returnType: numeric
+        - name: var_samp
+          returnType: numeric
+        - name: variance
+          returnType: numeric
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: numeric
+          functionMapping:
+            avg:
+              name: avg
+            max:
+              name: max
+            min:
+              name: min
+            stddev:
+              name: stddev
+            stddev_pop:
+              name: stddev_pop
+            stddev_samp:
+              name: stddev_samp
+            sum:
+              name: sum
+            var_pop:
+              name: var_pop
+            var_samp:
+              name: var_samp
+            variance:
+              name: variance
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: numeric_agg_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: timestamp_agg_exp
+  operand:
+    scalar:
+      aggregatedType: timestamp
+      aggregationFunctions:
+        - name: max
+          returnType: timestamp
+        - name: min
+          returnType: timestamp
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: timestamp
+          functionMapping:
+            max:
+              name: max
+            min:
+              name: min
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: timestamp_agg_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: text_agg_exp
+  operand:
+    scalar:
+      aggregatedType: text
+      aggregationFunctions:
+        - name: max
+          returnType: text
+        - name: min
+          returnType: text
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: text
+          functionMapping:
+            max:
+              name: max
+            min:
+              name: min
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: text_agg_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: int8_agg_exp
+  operand:
+    scalar:
+      aggregatedType: int8
+      aggregationFunctions:
+        - name: avg
+          returnType: numeric
+        - name: bit_and
+          returnType: int8
+        - name: bit_or
+          returnType: int8
+        - name: bit_xor
+          returnType: int8
+        - name: max
+          returnType: int8
+        - name: min
+          returnType: int8
+        - name: stddev
+          returnType: numeric
+        - name: stddev_pop
+          returnType: numeric
+        - name: stddev_samp
+          returnType: numeric
+        - name: sum
+          returnType: numeric
+        - name: var_pop
+          returnType: numeric
+        - name: var_samp
+          returnType: numeric
+        - name: variance
+          returnType: numeric
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: int8
+          functionMapping:
+            avg:
+              name: avg
+            bit_and:
+              name: bit_and
+            bit_or:
+              name: bit_or
+            bit_xor:
+              name: bit_xor
+            max:
+              name: max
+            min:
+              name: min
+            stddev:
+              name: stddev
+            stddev_pop:
+              name: stddev_pop
+            stddev_samp:
+              name: stddev_samp
+            sum:
+              name: sum
+            var_pop:
+              name: var_pop
+            var_samp:
+              name: var_samp
+            variance:
+              name: variance
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: int8_agg_exp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: timestamptz
+  graphql:
+    typeName: timestamptz
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: timestamptz_bool_exp
+  operand:
+    scalar:
+      type: timestamptz
+      comparisonOperators:
+        - name: _eq
+          argumentType: timestamptz!
+        - name: _gt
+          argumentType: timestamptz!
+        - name: _gte
+          argumentType: timestamptz!
+        - name: _in
+          argumentType: "[timestamptz!]!"
+        - name: _lt
+          argumentType: timestamptz!
+        - name: _lte
+          argumentType: timestamptz!
+        - name: _neq
+          argumentType: timestamptz!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: timestamptz
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: timestamptz_bool_exp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: postgres
+  dataConnectorScalarType: timestamptz
+  representation: timestamptz
+  graphql:
+    comparisonExpressionTypeName: timestamptz_comparison_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: timestamptz_agg_exp
+  operand:
+    scalar:
+      aggregatedType: timestamptz
+      aggregationFunctions:
+        - name: max
+          returnType: timestamptz
+        - name: min
+          returnType: timestamptz
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: postgres
+          dataConnectorScalarType: timestamptz
+          functionMapping:
+            max:
+              name: max
+            min:
+              name: min
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: timestamptz_agg_exp
+

@@ -1,0 +1,105 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: daily_standing_minutes
+  fields:
+    - name: stand_day
+      type: timestamp
+    - name: total_standing_minutes
+      type: numeric
+  graphql:
+    typeName: daily_standing_minutes
+    inputTypeName: daily_standing_minutes_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: daily_standing_minutes
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: daily_standing_minutes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - stand_day
+          - total_standing_minutes
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: daily_standing_minutes_bool_exp
+  operand:
+    object:
+      type: daily_standing_minutes
+      comparableFields:
+        - fieldName: stand_day
+          booleanExpressionType: timestamp_bool_exp
+        - fieldName: total_standing_minutes
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: daily_standing_minutes_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: daily_standing_minutes_agg_exp
+  operand:
+    object:
+      aggregatedType: daily_standing_minutes
+      aggregatableFields:
+        - fieldName: stand_day
+          aggregateExpression: timestamp_agg_exp
+        - fieldName: total_standing_minutes
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: daily_standing_minutes_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: daily_standing_minutes
+  objectType: daily_standing_minutes
+  source:
+    dataConnectorName: postgres
+    collection: daily_standing_minutes
+  filterExpressionType: daily_standing_minutes_bool_exp
+  aggregateExpression: daily_standing_minutes_agg_exp
+  orderableFields:
+    - fieldName: stand_day
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_standing_minutes
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: daily_standing_minutes
+    selectUniques: []
+    orderByExpressionType: daily_standing_minutes_order_by
+    filterInputTypeName: daily_standing_minutes_filter_input
+    aggregate:
+      queryRootField: daily_standing_minutes_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: daily_standing_minutes
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

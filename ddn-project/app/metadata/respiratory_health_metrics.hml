@@ -1,0 +1,135 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: respiratory_health_metrics
+  fields:
+    - name: date
+      type: timestamp
+    - name: fev1
+      type: numeric
+    - name: oxygen_saturation
+      type: numeric
+    - name: respiratory_rate
+      type: numeric
+    - name: vital_capacity
+      type: numeric
+  graphql:
+    typeName: respiratory_health_metrics
+    inputTypeName: respiratory_health_metrics_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: respiratory_health_metrics
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: respiratory_health_metrics
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - fev1
+          - oxygen_saturation
+          - respiratory_rate
+          - vital_capacity
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: respiratory_health_metrics_bool_exp
+  operand:
+    object:
+      type: respiratory_health_metrics
+      comparableFields:
+        - fieldName: date
+          booleanExpressionType: timestamp_bool_exp
+        - fieldName: fev1
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: oxygen_saturation
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: respiratory_rate
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: vital_capacity
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: respiratory_health_metrics_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: respiratory_health_metrics_agg_exp
+  operand:
+    object:
+      aggregatedType: respiratory_health_metrics
+      aggregatableFields:
+        - fieldName: date
+          aggregateExpression: timestamp_agg_exp
+        - fieldName: fev1
+          aggregateExpression: numeric_agg_exp
+        - fieldName: oxygen_saturation
+          aggregateExpression: numeric_agg_exp
+        - fieldName: respiratory_rate
+          aggregateExpression: numeric_agg_exp
+        - fieldName: vital_capacity
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: respiratory_health_metrics_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: respiratory_health_metrics
+  objectType: respiratory_health_metrics
+  source:
+    dataConnectorName: postgres
+    collection: respiratory_health_metrics
+  filterExpressionType: respiratory_health_metrics_bool_exp
+  aggregateExpression: respiratory_health_metrics_agg_exp
+  orderableFields:
+    - fieldName: date
+      orderByDirections:
+        enableAll: true
+    - fieldName: fev1
+      orderByDirections:
+        enableAll: true
+    - fieldName: oxygen_saturation
+      orderByDirections:
+        enableAll: true
+    - fieldName: respiratory_rate
+      orderByDirections:
+        enableAll: true
+    - fieldName: vital_capacity
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: respiratory_health_metrics
+    selectUniques: []
+    orderByExpressionType: respiratory_health_metrics_order_by
+    filterInputTypeName: respiratory_health_metrics_filter_input
+    aggregate:
+      queryRootField: respiratory_health_metrics_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: respiratory_health_metrics
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

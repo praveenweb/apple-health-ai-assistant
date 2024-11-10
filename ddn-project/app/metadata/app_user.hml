@@ -1,0 +1,160 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: app_user
+  description: 'Stores user profile information. This table contains demographic and medical context that helps personalize health insights and recommendations. If the data does not exist, the user can be optionally prompted to provide it. If the data exists, always use it in your context to provide personalized results for every query'
+  fields:
+    - name: blood_type
+      type: varchar
+    - name: cardio_fitness_medications_use
+      type: varchar
+    - name: date_of_birth
+      type: date
+      description: 'Calculate age from this field'
+    - name: id
+      type: int4!
+    - name: sex
+      type: varchar
+    - name: skin_type
+      type: varchar
+    - name: wheelchair_use
+      type: bool
+  graphql:
+    typeName: app_user
+    inputTypeName: app_user_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: postgres
+      dataConnectorObjectType: app_user
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: app_user
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - blood_type
+          - cardio_fitness_medications_use
+          - date_of_birth
+          - id
+          - sex
+          - skin_type
+          - wheelchair_use
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: app_user_bool_exp
+  operand:
+    object:
+      type: app_user
+      comparableFields:
+        - fieldName: blood_type
+          booleanExpressionType: varchar_bool_exp
+        - fieldName: cardio_fitness_medications_use
+          booleanExpressionType: varchar_bool_exp
+        - fieldName: date_of_birth
+          booleanExpressionType: date_bool_exp
+        - fieldName: id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: sex
+          booleanExpressionType: varchar_bool_exp
+        - fieldName: skin_type
+          booleanExpressionType: varchar_bool_exp
+        - fieldName: wheelchair_use
+          booleanExpressionType: bool_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: app_user_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: app_user_agg_exp
+  operand:
+    object:
+      aggregatedType: app_user
+      aggregatableFields:
+        - fieldName: blood_type
+          aggregateExpression: varchar_agg_exp
+        - fieldName: cardio_fitness_medications_use
+          aggregateExpression: varchar_agg_exp
+        - fieldName: date_of_birth
+          aggregateExpression: date_agg_exp
+        - fieldName: id
+          aggregateExpression: int4_agg_exp
+        - fieldName: sex
+          aggregateExpression: varchar_agg_exp
+        - fieldName: skin_type
+          aggregateExpression: varchar_agg_exp
+        - fieldName: wheelchair_use
+          aggregateExpression: bool_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: app_user_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: app_user
+  objectType: app_user
+  source:
+    dataConnectorName: postgres
+    collection: app_user
+  filterExpressionType: app_user_bool_exp
+  aggregateExpression: app_user_agg_exp
+  orderableFields:
+    - fieldName: blood_type
+      orderByDirections:
+        enableAll: true
+    - fieldName: cardio_fitness_medications_use
+      orderByDirections:
+        enableAll: true
+    - fieldName: date_of_birth
+      orderByDirections:
+        enableAll: true
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: sex
+      orderByDirections:
+        enableAll: true
+    - fieldName: skin_type
+      orderByDirections:
+        enableAll: true
+    - fieldName: wheelchair_use
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_user
+    selectUniques:
+      - queryRootField: app_user_by_id
+        uniqueIdentifier:
+          - id
+    orderByExpressionType: app_user_order_by
+    filterInputTypeName: app_user_filter_input
+    aggregate:
+      queryRootField: app_user_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: app_user
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

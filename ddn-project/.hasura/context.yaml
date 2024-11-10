@@ -1,0 +1,16 @@
+kind: Context
+version: v3
+definition:
+  current: default
+  contexts:
+    default:
+      project: tough-serval-1517
+      supergraph: ../supergraph.yaml
+      subgraph: ../app/subgraph.yaml
+      localEnvFile: ../.env
+      cloudEnvFile: ../.env.cloud
+  scripts:
+    docker-start:
+      bash: HASURA_DDN_PAT=$(ddn auth print-pat) PROMPTQL_SECRET_KEY=$(ddn auth print-promptql-secret-key) docker compose -f compose.yaml --env-file .env up --build --pull always
+      powershell: $Env:HASURA_DDN_PAT = ddn auth print-pat; $Env:PROMPTQL_SECRET_KEY = ddn auth print-promptql-secret-key; docker compose -f compose.yaml --env-file .env up --build --pull always
+  promptQL: true
