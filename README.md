@@ -2,6 +2,21 @@
 
 Explore your Apple Health data in natural language to get personalized insights.
 
+Here's a sample of what you can ask:
+- What's my average walking per day?
+- How much time am I spending outdoors?
+- Based on my weight and BMR, tell me if I'm on track to lose weight and what should my calorie intake be for losing 1 pound per week. Analyze data over the last 3 months.
+- Am I being exposed to a lot of noise in the environment? Check the impact on my hearing health.
+- How is my heart health?
+- How active have I been over the last few months? Are there any patterns and anomalies in my activity?
+- How much exercise activity did I do in the last year? What's the trend looking like?
+
+<p align="center">
+  <img src="./images/fitness-activity.jpg" alt="Fitness Activity" width="33%" height="200px" />
+  <img src="./images/heart-health.jpg" alt="Heart Health" width="33%" height="200px" />
+  <img src="./images/weight-loss.jpg" alt="Weight Loss" width="33%" height="200px" />
+</p>
+
 ## Quick Setup
 
 **Step 1**: Export Apple Health data from Apple iPhone:
@@ -11,7 +26,9 @@ Explore your Apple Health data in natural language to get personalized insights.
 - Go to the Health app on your iPhone.
 - Tap your picture or initials at the top right.
 - If you don’t see your picture or initials, tap Summary or Browse at the bottom of the screen, then scroll to the top of the screen.
-- Tap Export All Health Data, then choose a method for sharing your data. If you have a Macbook, share via AirDrop for quickly getting started. Else, use Google Drive to save and download.
+- Tap Export All Health Data, then choose a method for sharing your data. If you have a Macbook, share via AirDrop for quickly getting started. Else, use Google Drive to save and download. 
+
+The export can take some time depending on how much data you have. Ensure your phone doesn't lock during the export to prevent interruption.
 
 **Step 2**: Clone repo
 ```bash
@@ -81,6 +98,8 @@ echo 'ANTHROPIC_API_KEY=your-anthropic-api-key' >> .env
 ddn run docker-start
 ```
 
+In the above step, make sure to configure the `ANTHROPIC_API_KEY`.
+
 **Step 7**: Open DDN Console to start exploring PromptQL.
 
 ```bash
@@ -94,16 +113,6 @@ Head over to the console and say hi to your AI!
 ```
 > Hi, what can you do for me?
 ```
-
-## Example Questions to ask the AI Assistant
-
-- What's my average walking per day?
-- How much time am I spending outdoors?
-- Based on my weight and BMR, tell me if I'm on track to lose weight and what should my calorie intake be for losing 1 pound per week. Analyze data over the last 3 months.
-- Am I being exposed to a lot of noise in the environment? Check the impact on my hearing health.
-- How is my heart health?
-- How active have I been over the last few months? Are there any patterns and anomalies in my activity?
-- How much exercise activity did I do in the last year? What's the trend looking like?
 
 ## Cleanup and restart
 
