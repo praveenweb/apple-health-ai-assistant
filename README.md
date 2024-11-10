@@ -1,5 +1,8 @@
 # Apple Health AI Assistant
 
+[![PromptQL](https://img.shields.io/badge/Powered%20By-PromptQL-neon)](https://promptql.hasura.io)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-360/)
+
 Explore your Apple Health data in natural language to get personalized insights.
 
 Here's a sample of what you can ask:
