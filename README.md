@@ -12,9 +12,10 @@ Here's a sample of what you can ask:
 - How much exercise activity did I do in the last year? What's the trend looking like?
 
 <p align="center">
-  <img src="./images/fitness-activity.jpg" alt="Fitness Activity" width="33%" height="200px" />
-  <img src="./images/heart-health.jpg" alt="Heart Health" width="33%" height="200px" />
-  <img src="./images/weight-loss.jpg" alt="Weight Loss" width="33%" height="200px" />
+  <img src="./images/fitness-activity.jpg" alt="Fitness Activity" width="45%" height="200px" />
+  <img src="./images/heart-health.jpg" alt="Heart Health" width="45%" height="200px" />
+  <img src="./images/weight-loss.jpg" alt="Weight Loss" width="45%" height="200px" />
+  <img src="./images/time-spent-outdoor.jpg" alt="Time Spent Outdoor" width="45%" height="200px" />
 </p>
 
 ## Quick Setup
