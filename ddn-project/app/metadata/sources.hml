@@ -3,7 +3,6 @@ kind: ObjectType
 version: v1
 definition:
   name: sources
-  description: 'Data sources that are used to collect data. Usually contains device information or apps used to collect all the data from Apple Watch or iPhone'
   fields:
     - name: records_count
       type: int8
@@ -68,8 +67,25 @@ definition:
     selectTypeName: sources_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: sources_order_by_exp
+  operand:
+    object:
+      orderedType: sources
+      orderableFields:
+        - fieldName: records_count
+          orderByExpression: int8_order_by_exp
+        - fieldName: sourcename
+          orderByExpression: varchar_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: sources_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: sources
   objectType: sources
@@ -78,21 +94,18 @@ definition:
     collection: sources
   filterExpressionType: sources_bool_exp
   aggregateExpression: sources_agg_exp
-  orderableFields:
-    - fieldName: records_count
-      orderByDirections:
-        enableAll: true
-    - fieldName: sourcename
-      orderByDirections:
-        enableAll: true
+  orderByExpression: sources_order_by_exp
   graphql:
     selectMany:
       queryRootField: sources
+      subscription:
+        rootField: sources
     selectUniques: []
-    orderByExpressionType: sources_order_by
     filterInputTypeName: sources_filter_input
     aggregate:
       queryRootField: sources_aggregate
+      subscription:
+        rootField: sources_aggregate
 
 ---
 kind: ModelPermissions
@@ -103,4 +116,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

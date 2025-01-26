@@ -67,8 +67,25 @@ definition:
     selectTypeName: distinct_measurement_types_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: distinct_measurement_types_order_by_exp
+  operand:
+    object:
+      orderedType: distinct_measurement_types
+      orderableFields:
+        - fieldName: type
+          orderByExpression: varchar_order_by_exp
+        - fieldName: type_count
+          orderByExpression: int8_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: distinct_measurement_types_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: distinct_measurement_types
   objectType: distinct_measurement_types
@@ -77,21 +94,18 @@ definition:
     collection: distinct_measurement_types
   filterExpressionType: distinct_measurement_types_bool_exp
   aggregateExpression: distinct_measurement_types_agg_exp
-  orderableFields:
-    - fieldName: type
-      orderByDirections:
-        enableAll: true
-    - fieldName: type_count
-      orderByDirections:
-        enableAll: true
+  orderByExpression: distinct_measurement_types_order_by_exp
   graphql:
     selectMany:
       queryRootField: distinct_measurement_types
+      subscription:
+        rootField: distinct_measurement_types
     selectUniques: []
-    orderByExpressionType: distinct_measurement_types_order_by
     filterInputTypeName: distinct_measurement_types_filter_input
     aggregate:
       queryRootField: distinct_measurement_types_aggregate
+      subscription:
+        rootField: distinct_measurement_types_aggregate
 
 ---
 kind: ModelPermissions
@@ -102,4 +116,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

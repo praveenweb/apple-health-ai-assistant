@@ -563,6 +563,58 @@ definition:
     selectTypeName: bool_agg_exp
 
 ---
+kind: OrderByExpression
+version: v1
+definition:
+  name: varchar_order_by_exp
+  operand:
+    scalar:
+      orderedType: varchar
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: varchar_order_by_exp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: date_order_by_exp
+  operand:
+    scalar:
+      orderedType: date
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: date_order_by_exp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: int4_order_by_exp
+  operand:
+    scalar:
+      orderedType: int4
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: int4_order_by_exp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: bool_order_by_exp
+  operand:
+    scalar:
+      orderedType: bool
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: bool_order_by_exp
+
+---
 kind: ScalarType
 version: v1
 definition:
@@ -703,6 +755,32 @@ definition:
     selectTypeName: timestamp_agg_exp
 
 ---
+kind: OrderByExpression
+version: v1
+definition:
+  name: numeric_order_by_exp
+  operand:
+    scalar:
+      orderedType: numeric
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: numeric_order_by_exp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: timestamp_order_by_exp
+  operand:
+    scalar:
+      orderedType: timestamp
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: timestamp_order_by_exp
+
+---
 kind: AggregateExpression
 version: v1
 definition:
@@ -729,6 +807,19 @@ definition:
     enable: true
   graphql:
     selectTypeName: text_agg_exp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: text_order_by_exp
+  operand:
+    scalar:
+      orderedType: text
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: text_order_by_exp
 
 ---
 kind: AggregateExpression
@@ -801,6 +892,19 @@ definition:
     enable: true
   graphql:
     selectTypeName: int8_agg_exp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: int8_order_by_exp
+  operand:
+    scalar:
+      orderedType: int8
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: int8_order_by_exp
 
 ---
 kind: ScalarType
@@ -881,4 +985,17 @@ definition:
     enable: true
   graphql:
     selectTypeName: timestamptz_agg_exp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: timestamptz_order_by_exp
+  operand:
+    scalar:
+      orderedType: timestamptz
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: timestamptz_order_by_exp
 

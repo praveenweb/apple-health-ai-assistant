@@ -95,8 +95,33 @@ definition:
     selectTypeName: running_performance_analysis_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: running_performance_analysis_order_by_exp
+  operand:
+    object:
+      orderedType: running_performance_analysis
+      orderableFields:
+        - fieldName: avg_running_power
+          orderByExpression: numeric_order_by_exp
+        - fieldName: avg_running_speed
+          orderByExpression: numeric_order_by_exp
+        - fieldName: date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: ground_contact_time
+          orderByExpression: numeric_order_by_exp
+        - fieldName: stride_length
+          orderByExpression: numeric_order_by_exp
+        - fieldName: vertical_oscillation
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: running_performance_analysis_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: running_performance_analysis
   objectType: running_performance_analysis
@@ -105,33 +130,18 @@ definition:
     collection: running_performance_analysis
   filterExpressionType: running_performance_analysis_bool_exp
   aggregateExpression: running_performance_analysis_agg_exp
-  orderableFields:
-    - fieldName: avg_running_power
-      orderByDirections:
-        enableAll: true
-    - fieldName: avg_running_speed
-      orderByDirections:
-        enableAll: true
-    - fieldName: date
-      orderByDirections:
-        enableAll: true
-    - fieldName: ground_contact_time
-      orderByDirections:
-        enableAll: true
-    - fieldName: stride_length
-      orderByDirections:
-        enableAll: true
-    - fieldName: vertical_oscillation
-      orderByDirections:
-        enableAll: true
+  orderByExpression: running_performance_analysis_order_by_exp
   graphql:
     selectMany:
       queryRootField: running_performance_analysis
+      subscription:
+        rootField: running_performance_analysis
     selectUniques: []
-    orderByExpressionType: running_performance_analysis_order_by
     filterInputTypeName: running_performance_analysis_filter_input
     aggregate:
       queryRootField: running_performance_analysis_aggregate
+      subscription:
+        rootField: running_performance_analysis_aggregate
 
 ---
 kind: ModelPermissions
@@ -142,4 +152,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

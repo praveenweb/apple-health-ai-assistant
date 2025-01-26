@@ -4,7 +4,7 @@ definition:
   current: default
   contexts:
     default:
-      project: tough-serval-1517
+      project: precious-swift-3142
       supergraph: ../supergraph.yaml
       subgraph: ../app/subgraph.yaml
       localEnvFile: ../.env

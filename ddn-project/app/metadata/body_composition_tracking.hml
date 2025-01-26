@@ -95,8 +95,33 @@ definition:
     selectTypeName: body_composition_tracking_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: body_composition_tracking_order_by_exp
+  operand:
+    object:
+      orderedType: body_composition_tracking
+      orderableFields:
+        - fieldName: bmi
+          orderByExpression: numeric_order_by_exp
+        - fieldName: body_fat_percentage
+          orderByExpression: numeric_order_by_exp
+        - fieldName: date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: lean_body_mass
+          orderByExpression: numeric_order_by_exp
+        - fieldName: waist_circumference
+          orderByExpression: numeric_order_by_exp
+        - fieldName: weight
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: body_composition_tracking_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: body_composition_tracking
   objectType: body_composition_tracking
@@ -105,33 +130,18 @@ definition:
     collection: body_composition_tracking
   filterExpressionType: body_composition_tracking_bool_exp
   aggregateExpression: body_composition_tracking_agg_exp
-  orderableFields:
-    - fieldName: bmi
-      orderByDirections:
-        enableAll: true
-    - fieldName: body_fat_percentage
-      orderByDirections:
-        enableAll: true
-    - fieldName: date
-      orderByDirections:
-        enableAll: true
-    - fieldName: lean_body_mass
-      orderByDirections:
-        enableAll: true
-    - fieldName: waist_circumference
-      orderByDirections:
-        enableAll: true
-    - fieldName: weight
-      orderByDirections:
-        enableAll: true
+  orderByExpression: body_composition_tracking_order_by_exp
   graphql:
     selectMany:
       queryRootField: body_composition_tracking
+      subscription:
+        rootField: body_composition_tracking
     selectUniques: []
-    orderByExpressionType: body_composition_tracking_order_by
     filterInputTypeName: body_composition_tracking_filter_input
     aggregate:
       queryRootField: body_composition_tracking_aggregate
+      subscription:
+        rootField: body_composition_tracking_aggregate
 
 ---
 kind: ModelPermissions
@@ -142,4 +152,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

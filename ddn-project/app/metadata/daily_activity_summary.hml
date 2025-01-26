@@ -3,7 +3,6 @@ kind: ObjectType
 version: v1
 definition:
   name: daily_activity_summary
-  description: 'There might be multiple sources of daily activity data. This table will contain the summary of daily activity data from all sources. Use the right source to avoid duplication.'
   fields:
     - name: active_calories
       type: numeric
@@ -13,11 +12,10 @@ definition:
       type: timestamp
     - name: exercise_minutes
       type: numeric
-    - name: total_steps
-      type: numeric
     - name: sourcename
       type: varchar
-      description: 'Group by this sourcename field to avoid duplication of data and calculate the total steps, exercise minutes, and calories burned for the day. Use only one source to avoid duplication.'
+    - name: total_steps
+      type: numeric
   graphql:
     typeName: daily_activity_summary
     inputTypeName: daily_activity_summary_input
@@ -38,8 +36,8 @@ definition:
           - basal_calories
           - date
           - exercise_minutes
-          - total_steps
           - sourcename
+          - total_steps
 
 ---
 kind: BooleanExpressionType
@@ -58,10 +56,10 @@ definition:
           booleanExpressionType: timestamp_bool_exp
         - fieldName: exercise_minutes
           booleanExpressionType: numeric_bool_exp
-        - fieldName: total_steps
-          booleanExpressionType: numeric_bool_exp
         - fieldName: sourcename
           booleanExpressionType: varchar_bool_exp
+        - fieldName: total_steps
+          booleanExpressionType: numeric_bool_exp
       comparableRelationships: []
   logicalOperators:
     enable: true
@@ -87,18 +85,43 @@ definition:
           aggregateExpression: timestamp_agg_exp
         - fieldName: exercise_minutes
           aggregateExpression: numeric_agg_exp
-        - fieldName: total_steps
-          aggregateExpression: numeric_agg_exp
         - fieldName: sourcename
           aggregateExpression: varchar_agg_exp
+        - fieldName: total_steps
+          aggregateExpression: numeric_agg_exp
   count:
     enable: true
   graphql:
     selectTypeName: daily_activity_summary_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_activity_summary_order_by_exp
+  operand:
+    object:
+      orderedType: daily_activity_summary
+      orderableFields:
+        - fieldName: active_calories
+          orderByExpression: numeric_order_by_exp
+        - fieldName: basal_calories
+          orderByExpression: numeric_order_by_exp
+        - fieldName: date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: exercise_minutes
+          orderByExpression: numeric_order_by_exp
+        - fieldName: sourcename
+          orderByExpression: varchar_order_by_exp
+        - fieldName: total_steps
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_activity_summary_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_activity_summary
   objectType: daily_activity_summary
@@ -107,33 +130,18 @@ definition:
     collection: daily_activity_summary
   filterExpressionType: daily_activity_summary_bool_exp
   aggregateExpression: daily_activity_summary_agg_exp
-  orderableFields:
-    - fieldName: active_calories
-      orderByDirections:
-        enableAll: true
-    - fieldName: basal_calories
-      orderByDirections:
-        enableAll: true
-    - fieldName: date
-      orderByDirections:
-        enableAll: true
-    - fieldName: exercise_minutes
-      orderByDirections:
-        enableAll: true
-    - fieldName: total_steps
-      orderByDirections:
-        enableAll: true
-    - fieldName: sourcename
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_activity_summary_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_activity_summary
+      subscription:
+        rootField: daily_activity_summary
     selectUniques: []
-    orderByExpressionType: daily_activity_summary_order_by
     filterInputTypeName: daily_activity_summary_filter_input
     aggregate:
       queryRootField: daily_activity_summary_aggregate
+      subscription:
+        rootField: daily_activity_summary_aggregate
 
 ---
 kind: ModelPermissions
@@ -144,4 +152,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

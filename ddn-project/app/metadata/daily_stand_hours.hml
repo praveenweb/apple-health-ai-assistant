@@ -74,8 +74,27 @@ definition:
     selectTypeName: daily_stand_hours_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_stand_hours_order_by_exp
+  operand:
+    object:
+      orderedType: daily_stand_hours
+      orderableFields:
+        - fieldName: sourcename
+          orderByExpression: varchar_order_by_exp
+        - fieldName: stand_day
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: stand_hours_per_day
+          orderByExpression: int8_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_stand_hours_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_stand_hours
   objectType: daily_stand_hours
@@ -84,24 +103,18 @@ definition:
     collection: daily_stand_hours
   filterExpressionType: daily_stand_hours_bool_exp
   aggregateExpression: daily_stand_hours_agg_exp
-  orderableFields:
-    - fieldName: sourcename
-      orderByDirections:
-        enableAll: true
-    - fieldName: stand_day
-      orderByDirections:
-        enableAll: true
-    - fieldName: stand_hours_per_day
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_stand_hours_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_stand_hours
+      subscription:
+        rootField: daily_stand_hours
     selectUniques: []
-    orderByExpressionType: daily_stand_hours_order_by
     filterInputTypeName: daily_stand_hours_filter_input
     aggregate:
       queryRootField: daily_stand_hours_aggregate
+      subscription:
+        rootField: daily_stand_hours_aggregate
 
 ---
 kind: ModelPermissions
@@ -112,4 +125,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

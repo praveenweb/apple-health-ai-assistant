@@ -3,7 +3,6 @@ kind: ObjectType
 version: v1
 definition:
   name: daily_max_audio_exposure_dbaspl_levels
-  description: 'Monitors daily maximum headphone audio exposure. Important for hearing health. Helps prevent noise-induced hearing damage'
   fields:
     - name: daily_max_exposure_levels
       type: numeric
@@ -75,8 +74,27 @@ definition:
     selectTypeName: daily_max_audio_exposure_dbaspl_levels_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_max_audio_exposure_dbaspl_levels_order_by_exp
+  operand:
+    object:
+      orderedType: daily_max_audio_exposure_dbaspl_levels
+      orderableFields:
+        - fieldName: daily_max_exposure_levels
+          orderByExpression: numeric_order_by_exp
+        - fieldName: exposure_date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: unit
+          orderByExpression: varchar_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_max_audio_exposure_dbaspl_levels_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_max_audio_exposure_dbaspl_levels
   objectType: daily_max_audio_exposure_dbaspl_levels
@@ -85,24 +103,18 @@ definition:
     collection: daily_max_audio_exposure_dbaspl_levels
   filterExpressionType: daily_max_audio_exposure_dbaspl_levels_bool_exp
   aggregateExpression: daily_max_audio_exposure_dbaspl_levels_agg_exp
-  orderableFields:
-    - fieldName: daily_max_exposure_levels
-      orderByDirections:
-        enableAll: true
-    - fieldName: exposure_date
-      orderByDirections:
-        enableAll: true
-    - fieldName: unit
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_max_audio_exposure_dbaspl_levels_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_max_audio_exposure_dbaspl_levels
+      subscription:
+        rootField: daily_max_audio_exposure_dbaspl_levels
     selectUniques: []
-    orderByExpressionType: daily_max_audio_exposure_dbaspl_levels_order_by
     filterInputTypeName: daily_max_audio_exposure_dbaspl_levels_filter_input
     aggregate:
       queryRootField: daily_max_audio_exposure_dbaspl_levels_aggregate
+      subscription:
+        rootField: daily_max_audio_exposure_dbaspl_levels_aggregate
 
 ---
 kind: ModelPermissions
@@ -113,4 +125,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

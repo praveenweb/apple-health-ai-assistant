@@ -102,8 +102,35 @@ definition:
     selectTypeName: daily_mobility_metrics_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_mobility_metrics_order_by_exp
+  operand:
+    object:
+      orderedType: daily_mobility_metrics
+      orderableFields:
+        - fieldName: avg_step_length
+          orderByExpression: numeric_order_by_exp
+        - fieldName: avg_walking_speed
+          orderByExpression: numeric_order_by_exp
+        - fieldName: date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: double_support_percentage
+          orderByExpression: numeric_order_by_exp
+        - fieldName: stair_ascent_speed
+          orderByExpression: numeric_order_by_exp
+        - fieldName: stair_descent_speed
+          orderByExpression: numeric_order_by_exp
+        - fieldName: walking_asymmetry
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_mobility_metrics_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_mobility_metrics
   objectType: daily_mobility_metrics
@@ -112,36 +139,18 @@ definition:
     collection: daily_mobility_metrics
   filterExpressionType: daily_mobility_metrics_bool_exp
   aggregateExpression: daily_mobility_metrics_agg_exp
-  orderableFields:
-    - fieldName: avg_step_length
-      orderByDirections:
-        enableAll: true
-    - fieldName: avg_walking_speed
-      orderByDirections:
-        enableAll: true
-    - fieldName: date
-      orderByDirections:
-        enableAll: true
-    - fieldName: double_support_percentage
-      orderByDirections:
-        enableAll: true
-    - fieldName: stair_ascent_speed
-      orderByDirections:
-        enableAll: true
-    - fieldName: stair_descent_speed
-      orderByDirections:
-        enableAll: true
-    - fieldName: walking_asymmetry
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_mobility_metrics_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_mobility_metrics
+      subscription:
+        rootField: daily_mobility_metrics
     selectUniques: []
-    orderByExpressionType: daily_mobility_metrics_order_by
     filterInputTypeName: daily_mobility_metrics_filter_input
     aggregate:
       queryRootField: daily_mobility_metrics_aggregate
+      subscription:
+        rootField: daily_mobility_metrics_aggregate
 
 ---
 kind: ModelPermissions
@@ -152,4 +161,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

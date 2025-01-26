@@ -16,7 +16,6 @@ definition:
       type: text
     - name: type
       type: varchar
-      description: 'The source or device that provided the data. One date may have multiple data sources. Ensure to use one with the right amount of data to avoid duplication'
   graphql:
     typeName: daily_sleep_analysis
     inputTypeName: daily_sleep_analysis_input
@@ -96,8 +95,33 @@ definition:
     selectTypeName: daily_sleep_analysis_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_sleep_analysis_order_by_exp
+  operand:
+    object:
+      orderedType: daily_sleep_analysis
+      orderableFields:
+        - fieldName: duration_hours
+          orderByExpression: numeric_order_by_exp
+        - fieldName: duration_minutes
+          orderByExpression: numeric_order_by_exp
+        - fieldName: duration_seconds
+          orderByExpression: numeric_order_by_exp
+        - fieldName: night_date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: sleep_stage
+          orderByExpression: text_order_by_exp
+        - fieldName: type
+          orderByExpression: varchar_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_sleep_analysis_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_sleep_analysis
   objectType: daily_sleep_analysis
@@ -106,33 +130,18 @@ definition:
     collection: daily_sleep_analysis
   filterExpressionType: daily_sleep_analysis_bool_exp
   aggregateExpression: daily_sleep_analysis_agg_exp
-  orderableFields:
-    - fieldName: duration_hours
-      orderByDirections:
-        enableAll: true
-    - fieldName: duration_minutes
-      orderByDirections:
-        enableAll: true
-    - fieldName: duration_seconds
-      orderByDirections:
-        enableAll: true
-    - fieldName: night_date
-      orderByDirections:
-        enableAll: true
-    - fieldName: sleep_stage
-      orderByDirections:
-        enableAll: true
-    - fieldName: type
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_sleep_analysis_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_sleep_analysis
+      subscription:
+        rootField: daily_sleep_analysis
     selectUniques: []
-    orderByExpressionType: daily_sleep_analysis_order_by
     filterInputTypeName: daily_sleep_analysis_filter_input
     aggregate:
       queryRootField: daily_sleep_analysis_aggregate
+      subscription:
+        rootField: daily_sleep_analysis_aggregate
 
 ---
 kind: ModelPermissions
@@ -143,4 +152,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

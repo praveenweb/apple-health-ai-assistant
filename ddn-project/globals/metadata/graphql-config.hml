@@ -32,3 +32,5 @@ definition:
       countDistinctFieldName: _count_distinct
   mutation:
     rootOperationTypeName: Mutation
+  subscription:
+    rootOperationTypeName: Subscription

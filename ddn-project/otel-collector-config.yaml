@@ -14,20 +14,6 @@ receivers:
         endpoint: 0.0.0.0:4318
 service:
   pipelines:
-    logs:
-      exporters:
-        - otlp
-      processors:
-        - batch
-      receivers:
-        - otlp
-    metrics:
-      exporters:
-        - otlp
-      processors:
-        - batch
-      receivers:
-        - otlp
     traces:
       exporters:
         - otlp

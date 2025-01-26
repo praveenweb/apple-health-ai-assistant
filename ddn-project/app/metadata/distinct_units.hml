@@ -67,8 +67,25 @@ definition:
     selectTypeName: distinct_units_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: distinct_units_order_by_exp
+  operand:
+    object:
+      orderedType: distinct_units
+      orderableFields:
+        - fieldName: unit
+          orderByExpression: varchar_order_by_exp
+        - fieldName: unit_count
+          orderByExpression: int8_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: distinct_units_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: distinct_units
   objectType: distinct_units
@@ -77,21 +94,18 @@ definition:
     collection: distinct_units
   filterExpressionType: distinct_units_bool_exp
   aggregateExpression: distinct_units_agg_exp
-  orderableFields:
-    - fieldName: unit
-      orderByDirections:
-        enableAll: true
-    - fieldName: unit_count
-      orderByDirections:
-        enableAll: true
+  orderByExpression: distinct_units_order_by_exp
   graphql:
     selectMany:
       queryRootField: distinct_units
+      subscription:
+        rootField: distinct_units
     selectUniques: []
-    orderByExpressionType: distinct_units_order_by
     filterInputTypeName: distinct_units_filter_input
     aggregate:
       queryRootField: distinct_units_aggregate
+      subscription:
+        rootField: distinct_units_aggregate
 
 ---
 kind: ModelPermissions
@@ -102,4 +116,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

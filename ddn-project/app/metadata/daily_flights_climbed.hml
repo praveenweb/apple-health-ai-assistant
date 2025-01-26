@@ -67,8 +67,25 @@ definition:
     selectTypeName: daily_flights_climbed_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_flights_climbed_order_by_exp
+  operand:
+    object:
+      orderedType: daily_flights_climbed
+      orderableFields:
+        - fieldName: climb_date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: daily_flights_climbed
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_flights_climbed_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_flights_climbed
   objectType: daily_flights_climbed
@@ -77,21 +94,18 @@ definition:
     collection: daily_flights_climbed
   filterExpressionType: daily_flights_climbed_bool_exp
   aggregateExpression: daily_flights_climbed_agg_exp
-  orderableFields:
-    - fieldName: climb_date
-      orderByDirections:
-        enableAll: true
-    - fieldName: daily_flights_climbed
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_flights_climbed_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_flights_climbed
+      subscription:
+        rootField: daily_flights_climbed
     selectUniques: []
-    orderByExpressionType: daily_flights_climbed_order_by
     filterInputTypeName: daily_flights_climbed_filter_input
     aggregate:
       queryRootField: daily_flights_climbed_aggregate
+      subscription:
+        rootField: daily_flights_climbed_aggregate
 
 ---
 kind: ModelPermissions
@@ -102,4 +116,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

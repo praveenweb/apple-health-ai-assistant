@@ -88,8 +88,31 @@ definition:
     selectTypeName: daily_fat_composition_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_fat_composition_order_by_exp
+  operand:
+    object:
+      orderedType: daily_fat_composition
+      orderableFields:
+        - fieldName: date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: monounsaturated_fat
+          orderByExpression: numeric_order_by_exp
+        - fieldName: polyunsaturated_fat
+          orderByExpression: numeric_order_by_exp
+        - fieldName: saturated_fat
+          orderByExpression: numeric_order_by_exp
+        - fieldName: total_fat
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_fat_composition_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_fat_composition
   objectType: daily_fat_composition
@@ -98,30 +121,18 @@ definition:
     collection: daily_fat_composition
   filterExpressionType: daily_fat_composition_bool_exp
   aggregateExpression: daily_fat_composition_agg_exp
-  orderableFields:
-    - fieldName: date
-      orderByDirections:
-        enableAll: true
-    - fieldName: monounsaturated_fat
-      orderByDirections:
-        enableAll: true
-    - fieldName: polyunsaturated_fat
-      orderByDirections:
-        enableAll: true
-    - fieldName: saturated_fat
-      orderByDirections:
-        enableAll: true
-    - fieldName: total_fat
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_fat_composition_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_fat_composition
+      subscription:
+        rootField: daily_fat_composition
     selectUniques: []
-    orderByExpressionType: daily_fat_composition_order_by
     filterInputTypeName: daily_fat_composition_filter_input
     aggregate:
       queryRootField: daily_fat_composition_aggregate
+      subscription:
+        rootField: daily_fat_composition_aggregate
 
 ---
 kind: ModelPermissions
@@ -132,4 +143,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

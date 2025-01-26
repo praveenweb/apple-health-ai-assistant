@@ -95,8 +95,33 @@ definition:
     selectTypeName: heart_rate_zones_patterns_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: heart_rate_zones_patterns_order_by_exp
+  operand:
+    object:
+      orderedType: heart_rate_zones_patterns
+      orderableFields:
+        - fieldName: avg_heart_rate
+          orderByExpression: numeric_order_by_exp
+        - fieldName: heart_rate_zone
+          orderByExpression: text_order_by_exp
+        - fieldName: hour
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: max_heart_rate
+          orderByExpression: numeric_order_by_exp
+        - fieldName: measurements
+          orderByExpression: int8_order_by_exp
+        - fieldName: min_heart_rate
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: heart_rate_zones_patterns_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: heart_rate_zones_patterns
   objectType: heart_rate_zones_patterns
@@ -105,33 +130,18 @@ definition:
     collection: heart_rate_zones_patterns
   filterExpressionType: heart_rate_zones_patterns_bool_exp
   aggregateExpression: heart_rate_zones_patterns_agg_exp
-  orderableFields:
-    - fieldName: avg_heart_rate
-      orderByDirections:
-        enableAll: true
-    - fieldName: heart_rate_zone
-      orderByDirections:
-        enableAll: true
-    - fieldName: hour
-      orderByDirections:
-        enableAll: true
-    - fieldName: max_heart_rate
-      orderByDirections:
-        enableAll: true
-    - fieldName: measurements
-      orderByDirections:
-        enableAll: true
-    - fieldName: min_heart_rate
-      orderByDirections:
-        enableAll: true
+  orderByExpression: heart_rate_zones_patterns_order_by_exp
   graphql:
     selectMany:
       queryRootField: heart_rate_zones_patterns
+      subscription:
+        rootField: heart_rate_zones_patterns
     selectUniques: []
-    orderByExpressionType: heart_rate_zones_patterns_order_by
     filterInputTypeName: heart_rate_zones_patterns_filter_input
     aggregate:
       queryRootField: heart_rate_zones_patterns_aggregate
+      subscription:
+        rootField: heart_rate_zones_patterns_aggregate
 
 ---
 kind: ModelPermissions
@@ -142,4 +152,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

@@ -3,32 +3,23 @@ kind: ObjectType
 version: v1
 definition:
   name: health_data
-  description: 'Central repository for all health measurements and metrics. This table stores time-series health data from various sources with standardized units and timestamps. Fetch data from app_user table to customize the results for the user. Include this user data for providing personalized insights.'
   fields:
     - name: creationdate
       type: timestamp
-      description: 'When the record was created in the database'
     - name: enddate
       type: timestamp
-      description: 'When the measurement ended'
     - name: sourcename
       type: varchar
-      description: 'Device or app that recorded the measurement. There can be multiple sources for the same type of data on the same date. Ensure you are grouping the data by sourcename to avoid duplication or over counting.'
     - name: sourceversion
       type: varchar
-      description: 'Version of the recording device/app software'
     - name: startdate
       type: timestamp
-      description: 'When the measurement began'
     - name: type
       type: varchar
-      description: 'These are various measurement types for Apple Health data, which cover diverse health metrics. Here is a list of all the possible types in the "type" column: ActiveEnergyBurned, AppleExerciseTime, AppleSleepingWristTemperature, AppleStandHour, AppleStandTime, AppleWalkingSteadiness, BasalEnergyBurned, BloodGlucose, BloodPressureDiastolic, BloodPressureSystolic, BodyFatPercentage, BodyMass, BodyMassIndex, BodyTemperature, DietaryCalcium, DietaryCarbohydrates, DietaryCholesterol, DietaryEnergyConsumed, DietaryFatMonounsaturated, DietaryFatPolyunsaturated, DietaryFatSaturated, DietaryFatTotal, DietaryFiber, DietaryIron, DietaryPotassium, DietaryProtein, DietarySodium, DietarySugar, DietaryVitaminC, DistanceCycling, DistanceDownhillSnowSports, DistanceSwimming, DistanceWalkingRunning, DistanceWheelchair, Electrocardiogram, EnvironmentalAudioExposure, EnvironmentalSoundReduction, FlightsClimbed, ForcedExpiratoryVolume1, ForcedVitalCapacity, HeadphoneAudioExposure, HeartRate, HeartRateRecoveryOneMinute, HeartRateVariabilitySDNN, Height, HighHeartRateEvent, LeanBodyMass, LowHeartRateEvent, NikeFuel, OxygenSaturation, PeripheralPerfusionIndex, PhysicalEffort, PushCount, RespiratoryRate, RestingHeartRate, RunningGroundContactTime, RunningPower, RunningSpeed, RunningStrideLength, RunningVerticalOscillation, SexualActivity, SixMinuteWalkTestDistance, SleepAnalysis, SleepAnalysisTimes-*, SleepDurationGoal, StairAscentSpeed, StairDescentSpeed, StepCount, SwimmingStrokeCount, TimeInDaylight, UVExposure, VO2Max, WaistCircumference, WalkingAsymmetryPercentage, WalkingDoubleSupportPercentage, WalkingHeartRateAverage, WalkingSpeed, WalkingStepLength, Weight, WheelchairDistance. Some values may exist in the "type" column that are not listed here and some values listed here may not be available in the data. It depends on the dataset imported by the user.'
     - name: unit
       type: varchar
-      description: 'Unit of measurement'
     - name: value
       type: numeric
-      description: 'Numerical value of the measurement'
   graphql:
     typeName: health_data
     inputTypeName: health_data_input
@@ -118,8 +109,37 @@ definition:
     selectTypeName: health_data_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: health_data_order_by_exp
+  operand:
+    object:
+      orderedType: health_data
+      orderableFields:
+        - fieldName: creationdate
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: enddate
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: sourcename
+          orderByExpression: varchar_order_by_exp
+        - fieldName: sourceversion
+          orderByExpression: varchar_order_by_exp
+        - fieldName: startdate
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: type
+          orderByExpression: varchar_order_by_exp
+        - fieldName: unit
+          orderByExpression: varchar_order_by_exp
+        - fieldName: value
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: health_data_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: health_data
   objectType: health_data
@@ -128,39 +148,18 @@ definition:
     collection: health_data
   filterExpressionType: health_data_bool_exp
   aggregateExpression: health_data_agg_exp
-  orderableFields:
-    - fieldName: creationdate
-      orderByDirections:
-        enableAll: true
-    - fieldName: enddate
-      orderByDirections:
-        enableAll: true
-    - fieldName: sourcename
-      orderByDirections:
-        enableAll: true
-    - fieldName: sourceversion
-      orderByDirections:
-        enableAll: true
-    - fieldName: startdate
-      orderByDirections:
-        enableAll: true
-    - fieldName: type
-      orderByDirections:
-        enableAll: true
-    - fieldName: unit
-      orderByDirections:
-        enableAll: true
-    - fieldName: value
-      orderByDirections:
-        enableAll: true
+  orderByExpression: health_data_order_by_exp
   graphql:
     selectMany:
       queryRootField: health_data
+      subscription:
+        rootField: health_data
     selectUniques: []
-    orderByExpressionType: health_data_order_by
     filterInputTypeName: health_data_filter_input
     aggregate:
       queryRootField: health_data_aggregate
+      subscription:
+        rootField: health_data_aggregate
 
 ---
 kind: ModelPermissions
@@ -171,4 +170,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

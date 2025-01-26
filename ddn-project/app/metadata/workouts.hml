@@ -3,7 +3,6 @@ kind: ObjectType
 version: v1
 definition:
   name: workouts
-  description: 'Detailed workout session records including various metrics about physical activities and exercises.'
   fields:
     - name: creationdate
       type: timestamptz
@@ -11,7 +10,6 @@ definition:
       type: varchar
     - name: duration
       type: numeric
-      description: 'Length of workout session'
     - name: durationunit
       type: varchar
     - name: enddate
@@ -32,7 +30,6 @@ definition:
       type: varchar
     - name: workoutactivitytype
       type: varchar!
-      description: 'Type of workout - Possible values are (AmericanFootball, Archery, AustralianFootball, Badminton, Baseball, Basketball, Bowling, Boxing, Climbing, Cricket, CrossTraining, Curling, Cycling, Dance, DanceInspiredTraining, Elliptical, EquestrianSports, Fencing, Fishing, FunctionalStrengthTraining, Golf, Gymnastics, Handball, Hiking, Hockey, Hunting, Lacrosse, MartialArts, MindAndBody, MixedMetabolicCardioTraining, PaddleSports, Play, PreparationAndRecovery, Racquetball, Rowing, Rugby, Running, Sailing, SkatingSports, SnowSports, Soccer, Softball, Squash, StairClimbing, SurfingSports, Swimming, TableTennis, Tennis, TrackAndField, TraditionalStrengthTraining, Volleyball, Walking, WaterFitness, WaterPolo, WaterSports, Wrestling, Yoga, Barre, CoreTraining, CrossCountrySkiing, DownhillSkiing, Flexibility, HighIntensityIntervalTraining, JumpRope, Kickboxing, Pilates, Snowboarding, Stairs, StepTraining, WheelchairWalkPace, WheelchairRunPace, TaiChi, MixedCardio, HandCycling, DiscSports, FitnessGaming, CardioDance, SocialDance, Pickleball, Cooldown, Other). This can contain more values than mentioned as examples or the dataset might not have these values.'
   graphql:
     typeName: workouts
     inputTypeName: workouts_input
@@ -147,8 +144,47 @@ definition:
     selectTypeName: workouts_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: workouts_order_by_exp
+  operand:
+    object:
+      orderedType: workouts
+      orderableFields:
+        - fieldName: creationdate
+          orderByExpression: timestamptz_order_by_exp
+        - fieldName: device
+          orderByExpression: varchar_order_by_exp
+        - fieldName: duration
+          orderByExpression: numeric_order_by_exp
+        - fieldName: durationunit
+          orderByExpression: varchar_order_by_exp
+        - fieldName: enddate
+          orderByExpression: timestamptz_order_by_exp
+        - fieldName: sourcename
+          orderByExpression: varchar_order_by_exp
+        - fieldName: sourceversion
+          orderByExpression: varchar_order_by_exp
+        - fieldName: startdate
+          orderByExpression: timestamptz_order_by_exp
+        - fieldName: totaldistance
+          orderByExpression: numeric_order_by_exp
+        - fieldName: totaldistanceunit
+          orderByExpression: varchar_order_by_exp
+        - fieldName: totalenergyburned
+          orderByExpression: numeric_order_by_exp
+        - fieldName: totalenergyburnedunit
+          orderByExpression: varchar_order_by_exp
+        - fieldName: workoutactivitytype
+          orderByExpression: varchar_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: workouts_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: workouts
   objectType: workouts
@@ -157,54 +193,18 @@ definition:
     collection: workouts
   filterExpressionType: workouts_bool_exp
   aggregateExpression: workouts_agg_exp
-  orderableFields:
-    - fieldName: creationdate
-      orderByDirections:
-        enableAll: true
-    - fieldName: device
-      orderByDirections:
-        enableAll: true
-    - fieldName: duration
-      orderByDirections:
-        enableAll: true
-    - fieldName: durationunit
-      orderByDirections:
-        enableAll: true
-    - fieldName: enddate
-      orderByDirections:
-        enableAll: true
-    - fieldName: sourcename
-      orderByDirections:
-        enableAll: true
-    - fieldName: sourceversion
-      orderByDirections:
-        enableAll: true
-    - fieldName: startdate
-      orderByDirections:
-        enableAll: true
-    - fieldName: totaldistance
-      orderByDirections:
-        enableAll: true
-    - fieldName: totaldistanceunit
-      orderByDirections:
-        enableAll: true
-    - fieldName: totalenergyburned
-      orderByDirections:
-        enableAll: true
-    - fieldName: totalenergyburnedunit
-      orderByDirections:
-        enableAll: true
-    - fieldName: workoutactivitytype
-      orderByDirections:
-        enableAll: true
+  orderByExpression: workouts_order_by_exp
   graphql:
     selectMany:
       queryRootField: workouts
+      subscription:
+        rootField: workouts
     selectUniques: []
-    orderByExpressionType: workouts_order_by
     filterInputTypeName: workouts_filter_input
     aggregate:
       queryRootField: workouts_aggregate
+      subscription:
+        rootField: workouts_aggregate
 
 ---
 kind: ModelPermissions
@@ -215,4 +215,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

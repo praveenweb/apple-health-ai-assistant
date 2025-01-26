@@ -67,8 +67,25 @@ definition:
     selectTypeName: daily_standing_minutes_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_standing_minutes_order_by_exp
+  operand:
+    object:
+      orderedType: daily_standing_minutes
+      orderableFields:
+        - fieldName: stand_day
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: total_standing_minutes
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_standing_minutes_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_standing_minutes
   objectType: daily_standing_minutes
@@ -77,21 +94,18 @@ definition:
     collection: daily_standing_minutes
   filterExpressionType: daily_standing_minutes_bool_exp
   aggregateExpression: daily_standing_minutes_agg_exp
-  orderableFields:
-    - fieldName: stand_day
-      orderByDirections:
-        enableAll: true
-    - fieldName: total_standing_minutes
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_standing_minutes_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_standing_minutes
+      subscription:
+        rootField: daily_standing_minutes
     selectUniques: []
-    orderByExpressionType: daily_standing_minutes_order_by
     filterInputTypeName: daily_standing_minutes_filter_input
     aggregate:
       queryRootField: daily_standing_minutes_aggregate
+      subscription:
+        rootField: daily_standing_minutes_aggregate
 
 ---
 kind: ModelPermissions
@@ -102,4 +116,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

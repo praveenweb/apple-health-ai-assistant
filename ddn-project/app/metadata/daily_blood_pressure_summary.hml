@@ -3,7 +3,6 @@ kind: ObjectType
 version: v1
 definition:
   name: daily_blood_pressure_summary
-  description: 'Daily blood pressure summary. This may not contain data since the user may not have logged their blood pressure data for the day.'
   fields:
     - name: avg_diastolic
       type: numeric
@@ -103,8 +102,35 @@ definition:
     selectTypeName: daily_blood_pressure_summary_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_blood_pressure_summary_order_by_exp
+  operand:
+    object:
+      orderedType: daily_blood_pressure_summary
+      orderableFields:
+        - fieldName: avg_diastolic
+          orderByExpression: numeric_order_by_exp
+        - fieldName: avg_systolic
+          orderByExpression: numeric_order_by_exp
+        - fieldName: date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: max_diastolic
+          orderByExpression: numeric_order_by_exp
+        - fieldName: max_systolic
+          orderByExpression: numeric_order_by_exp
+        - fieldName: min_diastolic
+          orderByExpression: numeric_order_by_exp
+        - fieldName: min_systolic
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_blood_pressure_summary_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_blood_pressure_summary
   objectType: daily_blood_pressure_summary
@@ -113,36 +139,18 @@ definition:
     collection: daily_blood_pressure_summary
   filterExpressionType: daily_blood_pressure_summary_bool_exp
   aggregateExpression: daily_blood_pressure_summary_agg_exp
-  orderableFields:
-    - fieldName: avg_diastolic
-      orderByDirections:
-        enableAll: true
-    - fieldName: avg_systolic
-      orderByDirections:
-        enableAll: true
-    - fieldName: date
-      orderByDirections:
-        enableAll: true
-    - fieldName: max_diastolic
-      orderByDirections:
-        enableAll: true
-    - fieldName: max_systolic
-      orderByDirections:
-        enableAll: true
-    - fieldName: min_diastolic
-      orderByDirections:
-        enableAll: true
-    - fieldName: min_systolic
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_blood_pressure_summary_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_blood_pressure_summary
+      subscription:
+        rootField: daily_blood_pressure_summary
     selectUniques: []
-    orderByExpressionType: daily_blood_pressure_summary_order_by
     filterInputTypeName: daily_blood_pressure_summary_filter_input
     aggregate:
       queryRootField: daily_blood_pressure_summary_aggregate
+      subscription:
+        rootField: daily_blood_pressure_summary_aggregate
 
 ---
 kind: ModelPermissions
@@ -153,4 +161,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

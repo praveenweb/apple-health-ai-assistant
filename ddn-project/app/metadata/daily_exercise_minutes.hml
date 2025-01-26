@@ -67,8 +67,25 @@ definition:
     selectTypeName: daily_exercise_minutes_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_exercise_minutes_order_by_exp
+  operand:
+    object:
+      orderedType: daily_exercise_minutes
+      orderableFields:
+        - fieldName: daily_exercise_minutes
+          orderByExpression: numeric_order_by_exp
+        - fieldName: exercise_date
+          orderByExpression: timestamp_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_exercise_minutes_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_exercise_minutes
   objectType: daily_exercise_minutes
@@ -77,21 +94,18 @@ definition:
     collection: daily_exercise_minutes
   filterExpressionType: daily_exercise_minutes_bool_exp
   aggregateExpression: daily_exercise_minutes_agg_exp
-  orderableFields:
-    - fieldName: daily_exercise_minutes
-      orderByDirections:
-        enableAll: true
-    - fieldName: exercise_date
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_exercise_minutes_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_exercise_minutes
+      subscription:
+        rootField: daily_exercise_minutes
     selectUniques: []
-    orderByExpressionType: daily_exercise_minutes_order_by
     filterInputTypeName: daily_exercise_minutes_filter_input
     aggregate:
       queryRootField: daily_exercise_minutes_aggregate
+      subscription:
+        rootField: daily_exercise_minutes_aggregate
 
 ---
 kind: ModelPermissions
@@ -102,4 +116,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

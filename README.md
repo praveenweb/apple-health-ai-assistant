@@ -86,11 +86,6 @@ Now, let's setup the Hasura DDN project with PromptQL to start exploring the dat
 
 **Pre-requisite**
 - [Install Hasura DDN CLI](https://hasura.io/docs/3.0/cli/installation/)
-- Update CLI to the latest alpha. Temporary to enable the PromptQL interface.
-
-```bash
-ddn update-cli --version v2.12.0-alpha.2
-```
 
 Setup Hasura DDN project
 
@@ -98,11 +93,8 @@ Setup Hasura DDN project
 cd ddn-project
 ddn supergraph build local
 ddn project init
-echo 'ANTHROPIC_API_KEY=your-anthropic-api-key' >> .env
 ddn run docker-start
 ```
-
-In the above step, make sure to configure the `ANTHROPIC_API_KEY`.
 
 **Step 7**: Open DDN Console to start exploring PromptQL.
 

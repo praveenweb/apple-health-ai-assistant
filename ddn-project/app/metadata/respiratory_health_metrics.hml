@@ -88,8 +88,31 @@ definition:
     selectTypeName: respiratory_health_metrics_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: respiratory_health_metrics_order_by_exp
+  operand:
+    object:
+      orderedType: respiratory_health_metrics
+      orderableFields:
+        - fieldName: date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: fev1
+          orderByExpression: numeric_order_by_exp
+        - fieldName: oxygen_saturation
+          orderByExpression: numeric_order_by_exp
+        - fieldName: respiratory_rate
+          orderByExpression: numeric_order_by_exp
+        - fieldName: vital_capacity
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: respiratory_health_metrics_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: respiratory_health_metrics
   objectType: respiratory_health_metrics
@@ -98,30 +121,18 @@ definition:
     collection: respiratory_health_metrics
   filterExpressionType: respiratory_health_metrics_bool_exp
   aggregateExpression: respiratory_health_metrics_agg_exp
-  orderableFields:
-    - fieldName: date
-      orderByDirections:
-        enableAll: true
-    - fieldName: fev1
-      orderByDirections:
-        enableAll: true
-    - fieldName: oxygen_saturation
-      orderByDirections:
-        enableAll: true
-    - fieldName: respiratory_rate
-      orderByDirections:
-        enableAll: true
-    - fieldName: vital_capacity
-      orderByDirections:
-        enableAll: true
+  orderByExpression: respiratory_health_metrics_order_by_exp
   graphql:
     selectMany:
       queryRootField: respiratory_health_metrics
+      subscription:
+        rootField: respiratory_health_metrics
     selectUniques: []
-    orderByExpressionType: respiratory_health_metrics_order_by
     filterInputTypeName: respiratory_health_metrics_filter_input
     aggregate:
       queryRootField: respiratory_health_metrics_aggregate
+      subscription:
+        rootField: respiratory_health_metrics_aggregate
 
 ---
 kind: ModelPermissions
@@ -132,4 +143,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

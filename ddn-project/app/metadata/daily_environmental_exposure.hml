@@ -81,8 +81,29 @@ definition:
     selectTypeName: daily_environmental_exposure_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_environmental_exposure_order_by_exp
+  operand:
+    object:
+      orderedType: daily_environmental_exposure
+      orderableFields:
+        - fieldName: avg_sound_reduction
+          orderByExpression: numeric_order_by_exp
+        - fieldName: date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: daylight_minutes
+          orderByExpression: numeric_order_by_exp
+        - fieldName: max_environmental_audio_db
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_environmental_exposure_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_environmental_exposure
   objectType: daily_environmental_exposure
@@ -91,27 +112,18 @@ definition:
     collection: daily_environmental_exposure
   filterExpressionType: daily_environmental_exposure_bool_exp
   aggregateExpression: daily_environmental_exposure_agg_exp
-  orderableFields:
-    - fieldName: avg_sound_reduction
-      orderByDirections:
-        enableAll: true
-    - fieldName: date
-      orderByDirections:
-        enableAll: true
-    - fieldName: daylight_minutes
-      orderByDirections:
-        enableAll: true
-    - fieldName: max_environmental_audio_db
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_environmental_exposure_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_environmental_exposure
+      subscription:
+        rootField: daily_environmental_exposure
     selectUniques: []
-    orderByExpressionType: daily_environmental_exposure_order_by
     filterInputTypeName: daily_environmental_exposure_filter_input
     aggregate:
       queryRootField: daily_environmental_exposure_aggregate
+      subscription:
+        rootField: daily_environmental_exposure_aggregate
 
 ---
 kind: ModelPermissions
@@ -122,4 +134,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

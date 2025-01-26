@@ -88,8 +88,31 @@ definition:
     selectTypeName: daily_cardiovascular_metrics_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: daily_cardiovascular_metrics_order_by_exp
+  operand:
+    object:
+      orderedType: daily_cardiovascular_metrics
+      orderableFields:
+        - fieldName: avg_oxygen_saturation
+          orderByExpression: numeric_order_by_exp
+        - fieldName: date
+          orderByExpression: timestamp_order_by_exp
+        - fieldName: hrv_sdnn
+          orderByExpression: numeric_order_by_exp
+        - fieldName: resting_heart_rate
+          orderByExpression: numeric_order_by_exp
+        - fieldName: vo2_max
+          orderByExpression: numeric_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: daily_cardiovascular_metrics_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: daily_cardiovascular_metrics
   objectType: daily_cardiovascular_metrics
@@ -98,30 +121,18 @@ definition:
     collection: daily_cardiovascular_metrics
   filterExpressionType: daily_cardiovascular_metrics_bool_exp
   aggregateExpression: daily_cardiovascular_metrics_agg_exp
-  orderableFields:
-    - fieldName: avg_oxygen_saturation
-      orderByDirections:
-        enableAll: true
-    - fieldName: date
-      orderByDirections:
-        enableAll: true
-    - fieldName: hrv_sdnn
-      orderByDirections:
-        enableAll: true
-    - fieldName: resting_heart_rate
-      orderByDirections:
-        enableAll: true
-    - fieldName: vo2_max
-      orderByDirections:
-        enableAll: true
+  orderByExpression: daily_cardiovascular_metrics_order_by_exp
   graphql:
     selectMany:
       queryRootField: daily_cardiovascular_metrics
+      subscription:
+        rootField: daily_cardiovascular_metrics
     selectUniques: []
-    orderByExpressionType: daily_cardiovascular_metrics_order_by
     filterInputTypeName: daily_cardiovascular_metrics_filter_input
     aggregate:
       queryRootField: daily_cardiovascular_metrics_aggregate
+      subscription:
+        rootField: daily_cardiovascular_metrics_aggregate
 
 ---
 kind: ModelPermissions
@@ -132,4 +143,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 

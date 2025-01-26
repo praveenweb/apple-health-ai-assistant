@@ -3,7 +3,6 @@ kind: ObjectType
 version: v1
 definition:
   name: app_user
-  description: 'Stores user profile information. This table contains demographic and medical context that helps personalize health insights and recommendations. If the data does not exist, the user can be optionally prompted to provide it. If the data exists, always use it in your context to provide personalized results for every query'
   fields:
     - name: blood_type
       type: varchar
@@ -11,7 +10,6 @@ definition:
       type: varchar
     - name: date_of_birth
       type: date
-      description: 'Calculate age from this field'
     - name: id
       type: int4!
     - name: sex
@@ -104,8 +102,35 @@ definition:
     selectTypeName: app_user_agg_exp
 
 ---
-kind: Model
+kind: OrderByExpression
 version: v1
+definition:
+  name: app_user_order_by_exp
+  operand:
+    object:
+      orderedType: app_user
+      orderableFields:
+        - fieldName: blood_type
+          orderByExpression: varchar_order_by_exp
+        - fieldName: cardio_fitness_medications_use
+          orderByExpression: varchar_order_by_exp
+        - fieldName: date_of_birth
+          orderByExpression: date_order_by_exp
+        - fieldName: id
+          orderByExpression: int4_order_by_exp
+        - fieldName: sex
+          orderByExpression: varchar_order_by_exp
+        - fieldName: skin_type
+          orderByExpression: varchar_order_by_exp
+        - fieldName: wheelchair_use
+          orderByExpression: bool_order_by_exp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: app_user_order_by_exp
+
+---
+kind: Model
+version: v2
 definition:
   name: app_user
   objectType: app_user
@@ -114,39 +139,23 @@ definition:
     collection: app_user
   filterExpressionType: app_user_bool_exp
   aggregateExpression: app_user_agg_exp
-  orderableFields:
-    - fieldName: blood_type
-      orderByDirections:
-        enableAll: true
-    - fieldName: cardio_fitness_medications_use
-      orderByDirections:
-        enableAll: true
-    - fieldName: date_of_birth
-      orderByDirections:
-        enableAll: true
-    - fieldName: id
-      orderByDirections:
-        enableAll: true
-    - fieldName: sex
-      orderByDirections:
-        enableAll: true
-    - fieldName: skin_type
-      orderByDirections:
-        enableAll: true
-    - fieldName: wheelchair_use
-      orderByDirections:
-        enableAll: true
+  orderByExpression: app_user_order_by_exp
   graphql:
     selectMany:
       queryRootField: app_user
+      subscription:
+        rootField: app_user
     selectUniques:
       - queryRootField: app_user_by_id
         uniqueIdentifier:
           - id
-    orderByExpressionType: app_user_order_by
+        subscription:
+          rootField: app_user_by_id
     filterInputTypeName: app_user_filter_input
     aggregate:
       queryRootField: app_user_aggregate
+      subscription:
+        rootField: app_user_aggregate
 
 ---
 kind: ModelPermissions
@@ -157,4 +166,5 @@ definition:
     - role: admin
       select:
         filter: null
+        allowSubscriptions: true
 
