@@ -3,7 +3,7 @@
 [![PromptQL](https://img.shields.io/badge/Powered%20By-PromptQL-neon)](https://promptql.hasura.io)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-360/)
 
-Explore your Apple Health data in natural language to get personalized insights.
+Explore your Apple Health data in natural language to get personalized insights. I used AI to generate most of the code for this AI Assistant.
 
 Here's a sample of what you can ask:
 - What's my average walking per day?
@@ -20,6 +20,16 @@ Here's a sample of what you can ask:
   <img src="./images/weight-loss.jpg" alt="Weight Loss" width="45%" height="200px" />
   <img src="./images/time-spent-outdoor.jpg" alt="Time Spent Outdoor" width="45%" height="200px" />
 </p>
+
+## Motivation
+
+I love analyzing my health data to understand trends, optimize my activities, and maintain a healthy lifestyle. The Apple Watch collects a lot of rich data, but gaining meaningful insights from it can be tricky. I tried using some large language models (LLMs) to process the data directly from the Apple Health export. However, I quickly ran into problems: these models couldn't handle the complex XML structure or the sheer volume of data in a single prompt, limiting their ability to provide detailed insights. To overcome these limitations, I built a solution to parse and structure my health data into a PostgreSQL database, making it easily accessible for LLMs (via PromptQL's query planning) to answer natural language questions.
+
+## How I Built the Apple Health AI Assistant
+
+- **Extracting Apple Health Data**: Apple provides health data exports as an export.zip file containing an XML file with all recorded metrics. I made AI write a Python XML parser to extract and organize this data into CSV files. There was some prior work for reference, listed at the end.
+- **Storing Data in PostgreSQL**: Once parsed, the data is stored in PostgreSQL, making it easier to query. This database provides a structured foundation, allowing more efficient data handling and insights over the raw XML format.
+- **Connecting to an LLM with Hasura PromptQL**: Using [PromptQL by Hasura](https://promptql.hasura.io), I connected the PostgreSQL data to an LLM with Agentic Retrieval-Augmented Generation (RAG). PromptQL allows me to set up an LLM-driven query interface where users can ask questions in natural language, and the assistant retrieves answers directly from the health data.
 
 ## Quick Setup
 
@@ -90,6 +100,7 @@ Now, let's setup the Hasura DDN project with PromptQL to start exploring the dat
 Setup Hasura DDN project
 
 ```bash
+ddn auth login
 cd ddn-project
 ddn supergraph build local
 ddn project init
@@ -105,6 +116,8 @@ ddn console --local
 This should open up your browser (or print a browser URL) for opening up your console. It’ll typically be something like: [https://console.hasura.io/local?engine=localhost:3280&promptql=localhost:3282](https://console.hasura.io/local?engine=localhost:3280&promptql=localhost:3282)
 
 Head over to the console and say hi to your AI!
+
+**Note**: You get $10 worth of free credits to try out queries. Once that is over, you can configure your own LLM API key from Anthropic or OpenAI. Read [PromptQL docs](https://promptql.hasura.io) for more information.
 
 ```
 > Hi, what can you do for me?
